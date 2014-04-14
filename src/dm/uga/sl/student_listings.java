@@ -1,4 +1,4 @@
-package dm.sl;
+package dm.uga.sl;
 
 /**
  * Student Listings

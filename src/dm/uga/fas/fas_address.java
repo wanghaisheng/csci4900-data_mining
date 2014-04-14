@@ -1,4 +1,4 @@
-package dm.fas;
+package dm.uga.fas;
 
 /**
  * Faculty and Staff - Address

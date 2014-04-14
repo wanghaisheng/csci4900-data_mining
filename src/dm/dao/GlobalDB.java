@@ -24,6 +24,9 @@ public class GlobalDB {
 	public PreparedStatement insert_fas_phone;
 	public PreparedStatement insert_fas_address;
 	
+	//Jail
+	public PreparedStatement insert_jail;
+	
 	//Tools
 	public PreparedStatement disable_foreignkey;
 	public PreparedStatement select_last_insert_id;
@@ -61,7 +64,8 @@ public class GlobalDB {
 			//Faculty and Staff - Address
 			insert_fas_address = conn.prepareStatement("INSERT INTO fas_address(fas_id_1,name,street_1,street_2,city,state,zip,zip_4,country) VALUES(?,?,?,?,?,?,?,?,?)");
 			
-			
+			//Jail
+			insert_jail = conn.prepareStatement("INSERT INTO jail(mid_number,firstname,lastname,sex,race,booking_date,charge,bond_amount,case_number,police_case_number,year_of_birth,visitation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 			
 			//Tool
 			disable_foreignkey = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");

@@ -1,4 +1,4 @@
-package dm.fas.test;
+package dm.uga.fas.test;
 
 /**
  * Validates Page 45 of Faculty and Staff
@@ -18,10 +18,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dm.fas.faculty_and_staff;
-import dm.fas.fas_address;
-import dm.fas.fas_phone;
-import dm.parser.FASParser;
+import dm.uga.fas.faculty_and_staff;
+import dm.uga.fas.fas_address;
+import dm.uga.fas.fas_phone;
+import dm.uga.parser.FASParser;
 
 public class faculty_and_staff_p45Test {
 

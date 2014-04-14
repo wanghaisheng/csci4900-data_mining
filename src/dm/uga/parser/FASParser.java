@@ -1,4 +1,4 @@
-package dm.parser;
+package dm.uga.parser;
 
 /**
  * Parses file information
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dm.dao.GlobalDB;
-import dm.fas.faculty_and_staff;
+import dm.uga.fas.faculty_and_staff;
 
 public class FASParser {
 	FileStream fileStream;

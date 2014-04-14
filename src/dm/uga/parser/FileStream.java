@@ -1,4 +1,4 @@
-package dm.parser;
+package dm.uga.parser;
 
 /**
  * Opens file and returns data

@@ -1,26 +1,25 @@
-package dm.sl;
+package dm.uga.fas;
 
 /**
- * Student Listings - Phone Number
+ * Faculty and Staff - Phone Number
  * 
  * @author Vincent Lee
  * @since April 8, 2014
  * @version 1.0
  */
 
-public class sl_phone {
+public class fas_phone {
 	private int id;
 	private String country_code, area_code, exchange_code, line_number, extension;
 	
 	/**
-	 * Constructor
 	 * @param country_code
 	 * @param area_code
 	 * @param exchange_code
 	 * @param line_number
 	 * @param extension
 	 */
-	public sl_phone(String country_code, String area_code,
+	public fas_phone(String country_code, String area_code,
 			String exchange_code, String line_number, String extension) {
 		this.country_code = country_code;
 		this.area_code = area_code;
@@ -30,7 +29,6 @@ public class sl_phone {
 	}
 	
 	/**
-	 * Constructor with SQL auto-increment id
 	 * @param id
 	 * @param country_code
 	 * @param area_code
@@ -38,7 +36,7 @@ public class sl_phone {
 	 * @param line_number
 	 * @param extension
 	 */
-	public sl_phone(int id, String country_code, String area_code,
+	public fas_phone(int id, String country_code, String area_code,
 			String exchange_code, String line_number, String extension) {
 		this(country_code, area_code, exchange_code, line_number, extension);
 		this.id = id;
