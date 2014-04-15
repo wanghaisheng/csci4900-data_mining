@@ -24,3 +24,22 @@ TRUNCATE TABLE jail;
 TRUNCATE TABLE jailx;
 TRUNCATE TABLE jailx_address;
 TRUNCATE TABLE jailx_charge;
+
+-- -----------------------------------------------------
+-- Table Joins
+-- -----------------------------------------------------
+SELECT jailx.*, 
+jailx_address.street_2, jailx_address.city, jailx_address.state, jailx_address.zip, 
+jailx_charge.arresting_agency, jailx_charge.grade_of_charge, jailx_charge.charge_description, jailx_charge.disposition
+FROM jailx
+    JOIN jailx_address
+        ON jailx.id = jailx_address.jailx_id
+    JOIN jailx_charge
+        ON jailx.id = jailx_charge.jailx_id_1
+LIMIT 20
+;
+
+
+
+
+
