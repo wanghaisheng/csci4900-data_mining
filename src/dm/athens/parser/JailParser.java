@@ -22,17 +22,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import dm.athens.jail.*;
-import dm.athens.jail.jail.Sex;
+import dm.athens.jail.Jail.Sex;
 import dm.dao.GlobalDB;
 
 public class JailParser {
-	private static final boolean DEBUG = false;
-	private List<jail> jailList = new ArrayList<jail>();
-	private Document doc;
-	private GlobalDB global;
+	protected static final boolean DEBUG = false;
+	protected List<Jail> jailList;
+	protected Document doc;
+	protected GlobalDB global;
+	protected Date lastUpdate;
 	
 	public JailParser() {
-		this.jailList = new ArrayList<jail>();
+		this.jailList = new ArrayList<Jail>();
 		this.global = new GlobalDB();
 	}
 	
@@ -41,7 +42,7 @@ public class JailParser {
 			doc = Jsoup.parse(new File(filename), "UTF-8");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("error: openFile(" + filename + ")");
 			return false;
 		}
 	}
@@ -49,8 +50,17 @@ public class JailParser {
 	@SuppressWarnings("deprecation")
 	public void parseTable() {
 		try {
+			//Get the Last Updated time
+			Elements lastUpdateDiv = doc.select("DIV");
+			
+			String update = lastUpdateDiv.text();
+			int firstColon = update.indexOf(":"); //first ":"
+			update = update.substring(firstColon+2); //remove "Last Updated: "
+			SimpleDateFormat lastUpdateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa"); // 4/14/2014 6:00:00 PM 
+			lastUpdate = lastUpdateFormat.parse(update);
+			
 			//Get the table
-			Elements table = doc.select("TR");
+			Elements table = doc.select("tr");
 			
 			//Table Rows
 			for (Element row : table) {
@@ -66,9 +76,9 @@ public class JailParser {
 				//NAME
 				String name = column.get(1).text();
 				name = name.replace("\u00a0"," "); //remove "&nbsp;"
-				int firstOccurance = name.indexOf(','); //split on last name
-				String firstname = name.substring(firstOccurance+2);
-				String lastname = name.substring(0, firstOccurance);
+				int firstComma = name.indexOf(','); //split on last name
+				String firstname = name.substring(firstComma+2);
+				String lastname = name.substring(0, firstComma);
 				
 				//SEX
 				String sex = column.get(2).text();
@@ -77,10 +87,10 @@ public class JailParser {
 				String race = column.get(3).text();
 				
 				//BOOKING DATE
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyyhh:mm aa"); //3/10/20141:15 P.M.
+				SimpleDateFormat bookingFormat = new SimpleDateFormat("MM/dd/yyyyhh:mm aa"); // 3/10/20141:15 P.M.
 				String date = column.get(4).text().replace("\u00a0",""); //remove "&nbsp;"
 				date = date.replace(".", ""); //Fix "P.M." -> "PM"
-				Date booking_date = format.parse(date);
+				Date booking_date = bookingFormat.parse(date);
 				
 				//CHARGE
 				String charge = column.get(5).text();
@@ -119,11 +129,11 @@ public class JailParser {
 					System.out.println("visitation-" + visitation);
 				}
 
-				jailList.add(new jail(mid_number, firstname, lastname, (sex.equalsIgnoreCase("male")) ? Sex.MALE : Sex.FEMALE, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation));
+				jailList.add(new Jail(mid_number, firstname, lastname, (sex.equalsIgnoreCase("male")) ? Sex.MALE : Sex.FEMALE, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation));
 			}
 			
-			System.out.println("Rows: " + table.size());
-			System.out.println("Actual Rows(rows-header-blank): " + jailList.size());
+			if (DEBUG) System.out.println("Rows: " + table.size());
+			if (DEBUG) System.out.println("Actual Rows(rows-header-blank): " + jailList.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -133,7 +143,7 @@ public class JailParser {
 		try {
 			global.openDBconnection();
 			
-			for (jail instance : jailList) {
+			for (Jail instance : jailList) {
 				global.insert_jail.setInt(1, instance.getMid_number());
 				global.insert_jail.setString(2, instance.getFirstname());
 				global.insert_jail.setString(3, instance.getLastname());
@@ -146,6 +156,7 @@ public class JailParser {
 				global.insert_jail.setString(10, instance.getPolice_case_number());
 				global.insert_jail.setString(11, instance.getYear_of_birth());
 				global.insert_jail.setString(12, instance.getVisitation());
+				global.insert_jail.setTimestamp(13, new Timestamp(lastUpdate.getTime()));
 				global.insert_jail.execute();
 			}
 		} catch (Exception e) {

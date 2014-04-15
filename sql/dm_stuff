@@ -1,0 +1,26 @@
+USE dm;
+SHOW TABLES;
+
+SELECT * FROM student_listings;
+SELECT * FROM sl_phone;
+SELECT * FROM sl_address;
+SELECT * FROM faculty_and_staff;
+SELECT * FROM fas_phone;
+SELECT * FROM fas_address;
+SELECT * FROM jail LIMIT 20;
+SELECT * FROM jailx LIMIT 20;
+SELECT * FROM jailx_address LIMIT 20;
+SELECT * FROM jailx_charge LIMIT 20;
+
+DROP DATABASE dm;
+
+TRUNCATE TABLE student_listings;
+TRUNCATE TABLE sl_phone;
+TRUNCATE TABLE sl_address;
+TRUNCATE TABLE faculty_and_staff;
+TRUNCATE TABLE fas_phone;
+TRUNCATE TABLE fas_address;
+TRUNCATE TABLE jail;
+TRUNCATE TABLE jailx;
+TRUNCATE TABLE jailx_address;
+TRUNCATE TABLE jailx_charge;

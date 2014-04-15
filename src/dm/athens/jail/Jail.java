@@ -1,8 +1,16 @@
 package dm.athens.jail;
 
+/**
+ * Jail - CURRENT PRISONER
+ * 
+ * @author Vincent Lee
+ * @since April 14, 2014
+ * @version 1.0
+ */
+
 import java.util.Date;
 
-public class jail {
+public class Jail {
 	private int id, mid_number;
 	private String firstname, lastname, race, charge, case_number, police_case_number, year_of_birth, visitation;
 	private double bond_amount;
@@ -25,7 +33,7 @@ public class jail {
 	 * @param year_of_birth
 	 * @param visitation
 	 */
-	public jail(int mid_number, String firstname, String lastname, Sex sex, String race,
+	public Jail(int mid_number, String firstname, String lastname, Sex sex, String race,
 			Date booking_date, String charge, double bond_amount, String case_number,
 			String police_case_number, String year_of_birth, String visitation) {
 		this.mid_number = mid_number;
@@ -58,7 +66,7 @@ public class jail {
 	 * @param year_of_birth
 	 * @param visitation
 	 */
-	public jail(int id, int mid_number, String firstname, String lastname, Sex sex, String race,
+	public Jail(int id, int mid_number, String firstname, String lastname, Sex sex, String race,
 			Date booking_date, String charge, double bond_amount, String case_number,
 			String police_case_number, String year_of_birth, String visitation) {
 		this(mid_number, firstname, lastname, sex, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation);
@@ -103,11 +111,10 @@ public class jail {
 	
 	/** @return the booking_date */
 	public Date getBooking_date() {return booking_date;}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	
+	/**
+	 * @return toString()
 	 */
-	@Override
 	public String toString() {
 		return "jail [id=" + id + ", mid_number=" + mid_number + ", firstname="
 				+ firstname + ", lastname=" + lastname + ", race=" + race

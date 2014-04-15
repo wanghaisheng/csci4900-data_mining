@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import dm.dao.GlobalDB;
-import dm.uga.fas.faculty_and_staff;
+import dm.uga.fas.Faculty_and_staff;
 
 public class FASParser {
 	FileStream fileStream;
-	List<faculty_and_staff> fas;
+	List<Faculty_and_staff> fas;
 	String line;
 	
 	public FASParser(String filename) {
 		fileStream = new FileStream();
 		fileStream.openFile(filename);
-		fas = new ArrayList<faculty_and_staff>();
+		fas = new ArrayList<Faculty_and_staff>();
 	}
 	
 	public String advance() {
@@ -97,14 +97,14 @@ public class FASParser {
 	/**
 	 * @return the fas
 	 */
-	public List<faculty_and_staff> getFAS() {
+	public List<Faculty_and_staff> getFAS() {
 		return fas;
 	}
 
 	/**
 	 * @param fas the fas to set
 	 */
-	public void setFas(List<faculty_and_staff> fas) {
+	public void setFas(List<Faculty_and_staff> fas) {
 		this.fas = fas;
 	}
 

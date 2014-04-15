@@ -27,6 +27,11 @@ public class GlobalDB {
 	//Jail
 	public PreparedStatement insert_jail;
 	
+	//Jailx
+	public PreparedStatement insert_jailx;
+	public PreparedStatement insert_jailx_address;
+	public PreparedStatement insert_jailx_charge;
+	
 	//Tools
 	public PreparedStatement disable_foreignkey;
 	public PreparedStatement select_last_insert_id;
@@ -43,7 +48,7 @@ public class GlobalDB {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/dm", "root", "");
 //			conn = DriverManager.getConnection("jdbc:mysql://localhost/team4", "team4", "seprocess");
 			uuid = UUID.randomUUID();
-			System.out.println("<Connected to MySQL " + uuid.toString().substring(0, 8) + ">");
+			System.out.println("<MySQL " + uuid.toString().substring(0, 8) + " Connected>");
 			
 			//Prepared statements used to query database
 			//Student Listings
@@ -65,7 +70,16 @@ public class GlobalDB {
 			insert_fas_address = conn.prepareStatement("INSERT INTO fas_address(fas_id_1,name,street_1,street_2,city,state,zip,zip_4,country) VALUES(?,?,?,?,?,?,?,?,?)");
 			
 			//Jail
-			insert_jail = conn.prepareStatement("INSERT INTO jail(mid_number,firstname,lastname,sex,race,booking_date,charge,bond_amount,case_number,police_case_number,year_of_birth,visitation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+			insert_jail = conn.prepareStatement("INSERT INTO jail(mid_number,firstname,lastname,sex,race,booking_date,charge,bond_amount,case_number,police_case_number,year_of_birth,visitation,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			//Jailx
+			insert_jailx = conn.prepareStatement("INSERT INTO jailx(mid_number,firstname,lastname,sex,race,year_of_birth,height,weight,booking_date,released_date,bond_amount,case_number,police_case_number,visitation,photo,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			//Jailx - Address
+			insert_jailx_address = conn.prepareStatement("INSERT INTO jailx_address(jailx_id,street_1,street_2,city,state,zip,zip_4,country) VALUES(?,?,?,?,?,?,?,?)");
+			
+			//Jailx - Charge
+			insert_jailx_charge = conn.prepareStatement("INSERT INTO jailx_charge(jailx_id_1,arresting_agency,grade_of_charge,charge_description,disposition) VALUES(?,?,?,?,?)");
 			
 			//Tool
 			disable_foreignkey = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
@@ -78,7 +92,7 @@ public class GlobalDB {
 	public void closeDBconnection() {
 		try {
 			conn.close();
-			System.out.println("<Disconnected from MySQL " + uuid.toString().substring(0, 8) + ">");
+			System.out.println("<MySQL " + uuid.toString().substring(0, 8) + " Disconnected>");
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
 		}

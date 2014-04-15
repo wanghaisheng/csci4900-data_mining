@@ -18,12 +18,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dm.uga.fas.faculty_and_staff;
-import dm.uga.fas.fas_address;
-import dm.uga.fas.fas_phone;
+import dm.uga.fas.Faculty_and_staff;
+import dm.uga.fas.Fas_address;
+import dm.uga.fas.Fas_phone;
 import dm.uga.parser.FASParser;
 
-public class faculty_and_staff_p45Test {
+public class Faculty_and_staff_p45Test {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -45,7 +45,7 @@ public class faculty_and_staff_p45Test {
 	public void test() {
 		FASParser parser = new FASParser("45");
 		parser.parse();
-		List<faculty_and_staff> fas = parser.getFAS();
+		List<Faculty_and_staff> fas = parser.getFAS();
 		
 		assertEquals("C1U1-lastname", "Sr Accountant", fas.get(0).getTitle());
 		assertEquals("C1U1-firstname", "Beverly", fas.get(0).getFirstname());
@@ -53,13 +53,13 @@ public class faculty_and_staff_p45Test {
 		assertEquals("C1U1-lastname", "Aaron", fas.get(0).getLastname());
 		assertEquals("C1U1-suffix", "", fas.get(0).getSuffix());
 		assertEquals("C1U1-email", "aaronb@uga.edu", fas.get(0).getEmail());
-		fas_phone phone = fas.get(0).getPhone();
+		Fas_phone phone = fas.get(0).getPhone();
 		assertEquals("C1U1-country_code", "", phone.getCountry_code());
 		assertEquals("C1U1-area_code", "", phone.getArea_code());
 		assertEquals("C1U1-exchange_code", "425", phone.getExchange_code());
 		assertEquals("C1U1-line_number", "3025", phone.getLine_number());
 		assertEquals("C1U1-extension", "", phone.getExtension());
-		List<fas_address> address = fas.get(0).getAddress();
+		List<Fas_address> address = fas.get(0).getAddress();
 		assertEquals("C1U1A1-addresses", 1, address.size());
 		assertEquals("C1U1A1-name", "Graduate School", address.get(0).getName());
 		assertEquals("C1U1A1-street_1", "", address.get(0).getStreet_1());

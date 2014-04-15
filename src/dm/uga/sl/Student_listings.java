@@ -11,18 +11,18 @@ package dm.uga.sl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class student_listings {
+public class Student_listings {
 	private int id;
 	private String firstname, middlename, lastname, email, year_start, year_end;
-	private List<sl_phone> phone;
-	private List<sl_address> address;
+	private List<Sl_phone> phone;
+	private List<Sl_address> address;
 	
 	/**
 	 * No-args Constructor
 	 */
-	public student_listings() {
-		phone = new ArrayList<sl_phone>();
-		address = new ArrayList<sl_address>();
+	public Student_listings() {
+		phone = new ArrayList<Sl_phone>();
+		address = new ArrayList<Sl_address>();
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class student_listings {
 	 * @param year_start
 	 * @param year_end
 	 */
-	public student_listings(String firstname, String middlename,
+	public Student_listings(String firstname, String middlename,
 			String lastname, String email, String year_start, String year_end) {
 		this();
 		this.firstname = firstname;
@@ -55,7 +55,7 @@ public class student_listings {
 	 * @param year_start
 	 * @param year_end
 	 */
-	public student_listings(int id, String firstname, String middlename,
+	public Student_listings(int id, String firstname, String middlename,
 			String lastname, String email, String year_start, String year_end) {
 		this(firstname, middlename, lastname, email, year_start, year_end);
 		this.id = id;
@@ -65,7 +65,7 @@ public class student_listings {
 	 * @param phone the phone to add
 	 * @return true if this collection changed as a result of the call
 	 */
-	public boolean addPhone(sl_phone phone) {
+	public boolean addPhone(Sl_phone phone) {
 		return this.phone.add(phone);
 	}
 	
@@ -73,15 +73,13 @@ public class student_listings {
 	 * @param address the address to add
 	 * @return true if this collection changed as a result of the call
 	 */
-	public boolean addAddress(sl_address address) {
-		return this.address.add(address);
-	}
+	public boolean addAddress(Sl_address address) {return this.address.add(address);}
 	
 	/** @return the phone */
-	public List<sl_phone> getPhone() {return phone;}
+	public List<Sl_phone> getPhone() {return phone;}
 	
 	/** @return the address */
-	public List<sl_address> getAddress() {return address;}
+	public List<Sl_address> getAddress() {return address;}
 	
 	/** @return the id */
 	public int getId() {return id;}

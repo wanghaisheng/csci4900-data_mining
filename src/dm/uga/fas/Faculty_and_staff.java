@@ -11,17 +11,17 @@ package dm.uga.fas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class faculty_and_staff {
+public class Faculty_and_staff {
 	private int id;
 	private String title, firstname, middlename, lastname, suffix, email;
-	private fas_phone phone;
-	private List<fas_address> address;
+	private Fas_phone phone;
+	private List<Fas_address> address;
 	
 	/**
 	 * No-args Constructor
 	 */
-	public faculty_and_staff() {
-		address = new ArrayList<fas_address>();
+	public Faculty_and_staff() {
+		address = new ArrayList<Fas_address>();
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class faculty_and_staff {
 	 * @param suffix
 	 * @param email
 	 */
-	public faculty_and_staff(String title, String firstname, String middlename,
+	public Faculty_and_staff(String title, String firstname, String middlename,
 			String lastname, String suffix, String email) {
 		this();
 		this.title = title;
@@ -54,7 +54,7 @@ public class faculty_and_staff {
 	 * @param suffix
 	 * @param email
 	 */
-	public faculty_and_staff(int id, String title, String firstname, String middlename,
+	public Faculty_and_staff(int id, String title, String firstname, String middlename,
 			String lastname, String suffix, String email) {
 		this(title, firstname, middlename, lastname, suffix, email);
 		this.id = id;
@@ -64,15 +64,13 @@ public class faculty_and_staff {
 	 * @param address the address to add
 	 * @return true if this collection changed as a result of the call
 	 */
-	public boolean addAddress(fas_address address) {
-		return this.address.add(address);
-	}
+	public boolean addAddress(Fas_address address) {return this.address.add(address);}
 	
 	/** @param phone the phone to set */
-	public void setPhone(fas_phone phone) {this.phone = phone;}
+	public void setPhone(Fas_phone phone) {this.phone = phone;}
 	
 	/** @return the address */
-	public List<fas_address> getAddress() {return address;}
+	public List<Fas_address> getAddress() {return address;}
 	
 	/** @return the suffix */
 	public String getSuffix() {return suffix;}
@@ -81,7 +79,7 @@ public class faculty_and_staff {
 	public String getEmail() {return email;}
 	
 	/** @return the phone */
-	public fas_phone getPhone() {return phone;}
+	public Fas_phone getPhone() {return phone;}
 	
 	/** @return the id */
 	public int getId() {return id;}

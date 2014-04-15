@@ -1,20 +1,19 @@
-package dm.uga.fas;
+package dm.athens.jail;
 
 /**
- * Faculty and Staff - Address
+ * Jail Extended - Address
  * 
  * @author Vincent Lee
- * @since April 8, 2014
+ * @since April 14, 2014
  * @version 1.0
  */
 
-public class fas_address {
+public class Jailx_address {
 	private int id;
-	private String name, street_1, street_2, city, state, zip, zip_4, country;
-	private fas_phone phone;
+	private String street_1, street_2, city, state, zip, zip_4, country;
 	
 	/**
-	 * @param name
+	 * Constructor
 	 * @param street_1
 	 * @param street_2
 	 * @param city
@@ -23,9 +22,8 @@ public class fas_address {
 	 * @param zip_4
 	 * @param country
 	 */
-	public fas_address(String name, String street_1, String street_2,
-			String city, String state, String zip, String zip_4, String country) {
-		this.name = name;
+	public Jailx_address(String street_1, String street_2, String city, 
+			String state, String zip, String zip_4, String country) {
 		this.street_1 = street_1;
 		this.street_2 = street_2;
 		this.city = city;
@@ -36,8 +34,8 @@ public class fas_address {
 	}
 	
 	/**
+	 * Constructor with SQL auto-increment id
 	 * @param id
-	 * @param name
 	 * @param street_1
 	 * @param street_2
 	 * @param city
@@ -46,23 +44,14 @@ public class fas_address {
 	 * @param zip_4
 	 * @param country
 	 */
-	public fas_address(int id, String name, String street_1, String street_2,
-			String city, String state, String zip, String zip_4, String country) {
-		this(name, street_1, street_2, city, state, zip, zip_4, country);
+	public Jailx_address(int id, String street_1, String street_2, String city, 
+			String state, String zip, String zip_4, String country) {
+		this(street_1, street_2, city, state, zip, zip_4, country);
 		this.id = id;
 	}
 	
-	/** @param phone the phone to set */
-	public void setPhone(fas_phone phone) {this.phone = phone;}
-	
-	/** @return the phone */
-	public fas_phone getPhone() {return phone;}
-	
 	/** @return the id */
 	public int getId() {return id;}
-	
-	/** @return the name */
-	public String getName() {return name;}
 	
 	/** @return the street_1 */
 	public String getStreet_1() {return street_1;}
