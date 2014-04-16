@@ -38,7 +38,7 @@ public class Jailx extends Jail {
 	 * @param visitation
 	 * @param photo
 	 */
-	public Jailx(int mid_number, String firstname, String lastname, Sex sex,
+	public Jailx(int mid_number, String firstname, String lastname, String sex,
 			String race, String year_of_birth, int height, int weight, 
 			Date booking_date, Date released_date, double bond_amount, String case_number, 
 			String police_case_number, String visitation, boolean photo) {
@@ -69,7 +69,7 @@ public class Jailx extends Jail {
 	 * @param visitation
 	 * @param photo
 	 */
-	public Jailx(int id, int mid_number, String firstname, String lastname, Sex sex,
+	public Jailx(int id, int mid_number, String firstname, String lastname, String sex,
 			String race, String year_of_birth, int height, int weight, 
 			Date booking_date, Date released_date, double bond_amount, String case_number, 
 			String police_case_number, String visitation, boolean photo) {
@@ -107,4 +107,13 @@ public class Jailx extends Jail {
 	
 	/** @return the charges */
 	public List<Jailx_charge> getCharges() {return charges;}
+	
+	/**
+	 * @return toString
+	 */
+	public String toString() {
+		return super.toString() + " Jailx [released_date=" + released_date + ", height=" + height
+				+ ", weight=" + weight + ", photo=" + photo + ", address="
+				+ address + ", charges=" + charges + "]";
+	}
 }

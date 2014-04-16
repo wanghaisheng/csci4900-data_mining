@@ -1,6 +1,8 @@
 USE dm;
+DROP DATABASE dm;
 SHOW TABLES;
 
+-- all data
 SELECT * FROM student_listings;
 SELECT * FROM sl_phone;
 SELECT * FROM sl_address;
@@ -12,8 +14,7 @@ SELECT * FROM jailx LIMIT 20;
 SELECT * FROM jailx_address LIMIT 20;
 SELECT * FROM jailx_charge LIMIT 20;
 
-DROP DATABASE dm;
-
+-- remove data & reset auto increment id
 TRUNCATE TABLE student_listings;
 TRUNCATE TABLE sl_phone;
 TRUNCATE TABLE sl_address;
@@ -25,11 +26,24 @@ TRUNCATE TABLE jailx;
 TRUNCATE TABLE jailx_address;
 TRUNCATE TABLE jailx_charge;
 
--- -----------------------------------------------------
--- Table Joins
--- -----------------------------------------------------
+-- allows truncate of a table with a foreign key
+SET FOREIGN_KEY_CHECKS = 0;
+
+SELECT * FROM student_listings PROCEDURE ANALYSE();
+SELECT * FROM sl_phone PROCEDURE ANALYSE();
+SELECT * FROM sl_address PROCEDURE ANALYSE();
+SELECT * FROM faculty_and_staff PROCEDURE ANALYSE();
+SELECT * FROM fas_phone PROCEDURE ANALYSE();
+SELECT * FROM fas_address PROCEDURE ANALYSE();
+SELECT * FROM jail PROCEDURE ANALYSE();
+SELECT * FROM jailx PROCEDURE ANALYSE();
+SELECT * FROM jailx_address PROCEDURE ANALYSE();
+SELECT * FROM jailx_charge PROCEDURE ANALYSE();
+
+
+-- Jail Extended Join
 SELECT jailx.*, 
-jailx_address.street_2, jailx_address.city, jailx_address.state, jailx_address.zip, 
+jailx_address.street, jailx_address.city, jailx_address.state, jailx_address.zip, 
 jailx_charge.arresting_agency, jailx_charge.grade_of_charge, jailx_charge.charge_description, jailx_charge.disposition
 FROM jailx
     JOIN jailx_address
@@ -38,8 +52,5 @@ FROM jailx
         ON jailx.id = jailx_charge.jailx_id_1
 LIMIT 20
 ;
-
-
-
 
 

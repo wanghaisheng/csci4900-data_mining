@@ -12,11 +12,9 @@ import java.util.Date;
 
 public class Jail {
 	private int id, mid_number;
-	private String firstname, lastname, race, charge, case_number, police_case_number, year_of_birth, visitation;
+	private String firstname, lastname, sex, race, charge, case_number, police_case_number, year_of_birth, visitation;
 	private double bond_amount;
 	private Date booking_date;
-	public enum Sex {MALE, FEMALE}
-	private Sex sex;
 	
 	/**
 	 * Constructor
@@ -33,7 +31,7 @@ public class Jail {
 	 * @param year_of_birth
 	 * @param visitation
 	 */
-	public Jail(int mid_number, String firstname, String lastname, Sex sex, String race,
+	public Jail(int mid_number, String firstname, String lastname, String sex, String race,
 			Date booking_date, String charge, double bond_amount, String case_number,
 			String police_case_number, String year_of_birth, String visitation) {
 		this.mid_number = mid_number;
@@ -66,7 +64,7 @@ public class Jail {
 	 * @param year_of_birth
 	 * @param visitation
 	 */
-	public Jail(int id, int mid_number, String firstname, String lastname, Sex sex, String race,
+	public Jail(int id, int mid_number, String firstname, String lastname, String sex, String race,
 			Date booking_date, String charge, double bond_amount, String case_number,
 			String police_case_number, String year_of_birth, String visitation) {
 		this(mid_number, firstname, lastname, sex, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation);
@@ -86,7 +84,7 @@ public class Jail {
 	public String getLastname() {return lastname;}
 	
 	/** @return the sex */
-	public Sex getSex() {return sex;}
+	public String getSex() {return sex;}
 	
 	/** @return the race */
 	public String getRace() {return race;}
@@ -113,17 +111,15 @@ public class Jail {
 	public Date getBooking_date() {return booking_date;}
 	
 	/**
-	 * @return toString()
+	 * @return toString
 	 */
 	public String toString() {
-		return "jail [id=" + id + ", mid_number=" + mid_number + ", firstname="
-				+ firstname + ", lastname=" + lastname + ", race=" + race
-				+ ", charge=" + charge + ", case_number=" + case_number
-				+ ", police_case_number=" + police_case_number
-				+ ", year_of_birth=" + year_of_birth + ", visitation="
-				+ visitation + ", bond_amount=" + bond_amount
-				+ ", booking_date=" + booking_date + ", sex=" + sex + "]";
+		return "Jail [id=" + id + ", mid_number=" + mid_number + ", firstname="
+				+ firstname + ", lastname=" + lastname + ", sex=" + sex
+				+ ", race=" + race + ", booking_date=" + booking_date
+				+ ", charge=" + charge + ", bond_amount=" + bond_amount
+				+ ", case_number=" + case_number + ", police_case_number="
+				+ police_case_number + ", year_of_birth=" + year_of_birth
+				+ ", visitation=" + visitation + "]";
 	}
-	
-	
 }

@@ -10,54 +10,40 @@ package dm.athens.jail;
 
 public class Jailx_address {
 	private int id;
-	private String street_1, street_2, city, state, zip, zip_4, country;
+	private String street, city, state, zip;
 	
 	/**
 	 * Constructor
-	 * @param street_1
-	 * @param street_2
+	 * @param street
 	 * @param city
 	 * @param state
 	 * @param zip
-	 * @param zip_4
-	 * @param country
 	 */
-	public Jailx_address(String street_1, String street_2, String city, 
-			String state, String zip, String zip_4, String country) {
-		this.street_1 = street_1;
-		this.street_2 = street_2;
+	public Jailx_address(String street, String city, String state, String zip) {
+		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.zip_4 = zip_4;
-		this.country = country;
 	}
 	
 	/**
 	 * Constructor with SQL auto-increment id
 	 * @param id
-	 * @param street_1
-	 * @param street_2
+	 * @param street
 	 * @param city
 	 * @param state
 	 * @param zip
-	 * @param zip_4
-	 * @param country
 	 */
-	public Jailx_address(int id, String street_1, String street_2, String city, 
-			String state, String zip, String zip_4, String country) {
-		this(street_1, street_2, city, state, zip, zip_4, country);
+	public Jailx_address(int id, String street, String city, String state, String zip) {
+		this(street, city, state, zip);
 		this.id = id;
 	}
 	
 	/** @return the id */
 	public int getId() {return id;}
 	
-	/** @return the street_1 */
-	public String getStreet_1() {return street_1;}
-	
-	/** @return the street_2 */
-	public String getStreet_2() {return street_2;}
+	/** @return the street */
+	public String getStreet() {return street;}
 	
 	/** @return the city */
 	public String getCity() {return city;}
@@ -68,9 +54,11 @@ public class Jailx_address {
 	/** @return the zip */
 	public String getZip() {return zip;}
 	
-	/** @return the zip_4 */
-	public String getZip_4() {return zip_4;}
-	
-	/** @return the country */
-	public String getCountry() {return country;}
+	/**
+	 * @return toString
+	 */
+	public String toString() {
+		return "Jailx_address [id=" + id + ", street=" + street + ", city="
+				+ city + ", state=" + state + ", zip=" + zip + "]";
+	}
 }

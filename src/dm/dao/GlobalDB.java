@@ -46,7 +46,6 @@ public class GlobalDB {
             //Connect to database
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/dm", "root", "");
-//			conn = DriverManager.getConnection("jdbc:mysql://localhost/team4", "team4", "seprocess");
 			uuid = UUID.randomUUID();
 			System.out.println("<MySQL " + uuid.toString().substring(0, 8) + " Connected>");
 			
@@ -76,7 +75,7 @@ public class GlobalDB {
 			insert_jailx = conn.prepareStatement("INSERT INTO jailx(mid_number,firstname,lastname,sex,race,year_of_birth,height,weight,booking_date,released_date,bond_amount,case_number,police_case_number,visitation,photo,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			
 			//Jailx - Address
-			insert_jailx_address = conn.prepareStatement("INSERT INTO jailx_address(jailx_id,street_1,street_2,city,state,zip,zip_4,country) VALUES(?,?,?,?,?,?,?,?)");
+			insert_jailx_address = conn.prepareStatement("INSERT INTO jailx_address(jailx_id,street,city,state,zip) VALUES(?,?,?,?,?)");
 			
 			//Jailx - Charge
 			insert_jailx_charge = conn.prepareStatement("INSERT INTO jailx_charge(jailx_id_1,arresting_agency,grade_of_charge,charge_description,disposition) VALUES(?,?,?,?,?)");

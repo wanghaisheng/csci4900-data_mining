@@ -10,9 +10,7 @@ package dm.athens.jail;
 
 public class Jailx_charge {
 	private int id;
-	private String arresting_agency, charge_description, disposition;
-	public enum Grade {MISDEMEANOR,FELONY}
-	private Grade grade_of_charge;
+	private String arresting_agency, grade_of_charge, charge_description, disposition;
 	
 	/**
 	 * Constructor
@@ -21,8 +19,7 @@ public class Jailx_charge {
 	 * @param charge_description
 	 * @param disposition
 	 */
-	public Jailx_charge(String arresting_agency, 
-			Grade grade_of_charge, String charge_description, String disposition) {
+	public Jailx_charge(String arresting_agency, String grade_of_charge, String charge_description, String disposition) {
 		this.arresting_agency = arresting_agency;
 		this.charge_description = charge_description;
 		this.disposition = disposition;
@@ -37,8 +34,7 @@ public class Jailx_charge {
 	 * @param charge_description
 	 * @param disposition
 	 */
-	public Jailx_charge(int id, String arresting_agency, 
-			Grade grade_of_charge, String charge_description, String disposition) {
+	public Jailx_charge(int id, String arresting_agency, String grade_of_charge, String charge_description, String disposition) {
 		this(arresting_agency, grade_of_charge, charge_description, disposition);
 		this.id = id;
 	}
@@ -49,12 +45,22 @@ public class Jailx_charge {
 	/** @return the arresting_agency */
 	public String getArresting_agency() {return arresting_agency;}
 	
+	/** @return the grade_of_charge */
+	public String getGrade_of_charge() {return grade_of_charge;}
+	
 	/** @return the charge_description */
 	public String getCharge_description() {return charge_description;}
 	
 	/** @return the disposition */
 	public String getDisposition() {return disposition;}
 	
-	/** @return the grade_of_charge */
-	public Grade getGrade_of_charge() {return grade_of_charge;}
+	/**
+	 * @return toString
+	 */
+	public String toString() {
+		return "Jailx_charge [id=" + id + ", arresting_agency="
+				+ arresting_agency + ", grade_of_charge=" + grade_of_charge
+				+ ", charge_description=" + charge_description
+				+ ", disposition=" + disposition + "]";
+	}
 }

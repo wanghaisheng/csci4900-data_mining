@@ -22,7 +22,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import dm.athens.jail.*;
-import dm.athens.jail.Jail.Sex;
 import dm.dao.GlobalDB;
 
 public class JailParser {
@@ -112,13 +111,14 @@ public class JailParser {
 				
 				//VISITATION
 				String visitation = column.get(10).text();
-				
+				if (visitation.length() == 0)
+					visitation = null;
 				
 				if (DEBUG) {
 					System.out.println("mid_number-" + mid_number);
 					System.out.println("firstname-" + firstname);
 					System.out.println("lastname-" + lastname);
-					System.out.println("sex-" + Sex.MALE);
+					System.out.println("sex-" + sex);
 					System.out.println("race-" + race);
 					System.out.println("booking_date-" + booking_date.toLocaleString());
 					System.out.println("charge-" + charge);
@@ -129,7 +129,7 @@ public class JailParser {
 					System.out.println("visitation-" + visitation);
 				}
 
-				jailList.add(new Jail(mid_number, firstname, lastname, (sex.equalsIgnoreCase("male")) ? Sex.MALE : Sex.FEMALE, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation));
+				jailList.add(new Jail(mid_number, firstname, lastname, sex, race, booking_date, charge, bond_amount, case_number, police_case_number, year_of_birth, visitation));
 			}
 			
 			if (DEBUG) System.out.println("Rows: " + table.size());
@@ -144,20 +144,25 @@ public class JailParser {
 			global.openDBconnection();
 			
 			for (Jail instance : jailList) {
-				global.insert_jail.setInt(1, instance.getMid_number());
-				global.insert_jail.setString(2, instance.getFirstname());
-				global.insert_jail.setString(3, instance.getLastname());
-				global.insert_jail.setString(4, instance.getSex().name());
-				global.insert_jail.setString(5, instance.getRace());
-				global.insert_jail.setTimestamp(6, new Timestamp(instance.getBooking_date().getTime()));
-				global.insert_jail.setString(7, instance.getCharge());
-				global.insert_jail.setDouble(8, instance.getBond_amount());
-				global.insert_jail.setString(9, instance.getCase_number());
-				global.insert_jail.setString(10, instance.getPolice_case_number());
-				global.insert_jail.setString(11, instance.getYear_of_birth());
-				global.insert_jail.setString(12, instance.getVisitation());
-				global.insert_jail.setTimestamp(13, new Timestamp(lastUpdate.getTime()));
-				global.insert_jail.execute();
+				try {
+					global.insert_jail.setInt(1, instance.getMid_number());
+					global.insert_jail.setString(2, instance.getFirstname());
+					global.insert_jail.setString(3, instance.getLastname());
+					global.insert_jail.setString(4, instance.getSex());
+					global.insert_jail.setString(5, instance.getRace());
+					global.insert_jail.setTimestamp(6, new Timestamp(instance.getBooking_date().getTime()));
+					global.insert_jail.setString(7, instance.getCharge());
+					global.insert_jail.setDouble(8, instance.getBond_amount());
+					global.insert_jail.setString(9, instance.getCase_number());
+					global.insert_jail.setString(10, instance.getPolice_case_number());
+					global.insert_jail.setString(11, instance.getYear_of_birth());
+					global.insert_jail.setString(12, instance.getVisitation());
+					global.insert_jail.setTimestamp(13, new Timestamp(lastUpdate.getTime()));
+					global.insert_jail.execute();
+				} catch (Exception e) {
+					System.out.println(instance);
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -166,9 +171,13 @@ public class JailParser {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param args filename
+	 */
 	public static void main(String[] args) {
 		JailParser jailParser = new JailParser();
-		jailParser.openFile("jailcurrent.asp");
+		jailParser.openFile(args[0]);
 		jailParser.parseTable();
 		jailParser.tableToSQL();
 	}

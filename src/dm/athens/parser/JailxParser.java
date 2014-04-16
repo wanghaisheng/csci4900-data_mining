@@ -32,7 +32,6 @@ import dm.athens.jail.Jail;
 import dm.athens.jail.Jailx;
 import dm.athens.jail.Jailx_address;
 import dm.athens.jail.Jailx_charge;
-import dm.athens.jail.Jailx_charge.Grade;
 
 public class JailxParser extends JailParser {
 	private final String detailsFront = "http://api.athensclarkecounty.com/sheriff/jail/details.asp?id=";
@@ -40,6 +39,7 @@ public class JailxParser extends JailParser {
 	private List<Jailx> jailxList;
 	private Document docc;
 	private static final String folderPath = "images";
+	private static boolean getPhoto;
 	
 	public JailxParser() {
 		super();
@@ -66,22 +66,36 @@ public class JailxParser extends JailParser {
 			    tokens.add(tokenize.next());
 			tokenize.close();
 			
-			String street_2 = tokens.get(0);
+			String street = tokens.get(0);
 			String city = tokens.get(2);
 			city = city.substring(0, city.length()-1); //remove "," from end
 			String state = tokens.get(3);
+			if (state.length() == 0)
+				state = null;
+			
+			
 			String zip = null;
 			if (tokens.size() == 6)
 				zip = tokens.get(5);
 			
+			//Zip
+			//Replace all numbers: [^a-zA-Z]
+			//Replace all letters: [a-zA-Z]
+			zip = zip.replaceAll("[a-zA-Z]", "");
+			if (zip.length() != 5) {
+				zip = null;
+				System.out.println("error: zip-" + zip);
+			}
+			
+			
 			if (DEBUG) {
-				System.out.println("street2-" + street_2);
+				System.out.println("street-" + street);
 				System.out.println("city-" + city);
 				System.out.println("state-" + state);
 				System.out.println("zip-" + zip);
 			}
 			
-			return new Jailx_address(null, street_2, city, state, zip, null, null);
+			return new Jailx_address(street, city, state, zip);
 		} catch (Exception e) {
 			System.out.println("error: address");
 			return null;
@@ -199,16 +213,20 @@ public class JailxParser extends JailParser {
 					
 					//http://api.athensclarkecounty.com/sheriff/jail/notavailable.gif
 					if (!imageURL.endsWith("notavailable.gif")) {
-						getImage(imageURL, instance.getMid_number());
+						if (getPhoto) getImage(imageURL, instance.getMid_number());
 						photo = true;
 					}
 				}
 				
 				//Charges
 				if (counter >= 8) {
-					charges.add(new Jailx_charge(column.get(0).text(), 
-							column.get(1).text().equalsIgnoreCase("FELONY") ? Grade.FELONY : Grade.MISDEMEANOR, 
-							column.get(2).text(), column.get(3).text()));
+					String arresting_agency = column.get(0).text();
+					String grade_of_charge = column.get(1).text();
+					if (grade_of_charge.length() == 0) grade_of_charge = null;
+					String charge_description = column.get(2).text();
+					String disposition = column.get(3).text();
+					
+					charges.add(new Jailx_charge(arresting_agency, grade_of_charge, charge_description, disposition));
 				}
 				
 				counter++;
@@ -230,51 +248,53 @@ public class JailxParser extends JailParser {
 			global.openDBconnection();
 			
 			for (Jailx instance : jailxList) {
-				//Jailx
-				global.insert_jailx.setInt(1, instance.getMid_number());
-				global.insert_jailx.setString(2, instance.getFirstname());
-				global.insert_jailx.setString(3, instance.getLastname());
-				global.insert_jailx.setString(4, instance.getSex().name());
-				global.insert_jailx.setString(5, instance.getRace());
-				global.insert_jailx.setString(6, instance.getYear_of_birth());
-				global.insert_jailx.setInt(7, instance.getHeight());
-				global.insert_jailx.setInt(8, instance.getWeight());
-				global.insert_jailx.setTimestamp(9, new Timestamp(instance.getBooking_date().getTime()));
-				global.insert_jailx.setTimestamp(10, (instance.getReleased_date() == null) ? null : new Timestamp(instance.getReleased_date().getTime()));
-				global.insert_jailx.setDouble(11, instance.getBond_amount());
-				global.insert_jailx.setString(12, instance.getCase_number());
-				global.insert_jailx.setString(13, instance.getPolice_case_number());
-				global.insert_jailx.setString(14, instance.getVisitation());
-				global.insert_jailx.setBoolean(15, instance.isPhoto());
-				global.insert_jailx.setTimestamp(16, new Timestamp(lastUpdate.getTime()));
-				global.insert_jailx.execute();
-				
-				int last_insert_id = 1;
-				ResultSet rs = global.select_last_insert_id.executeQuery();
-				if (rs.next()) last_insert_id = rs.getInt(1);
-				
-				//Jailx - Address
-				Jailx_address address = instance.getAddress();
-				if (address != null) {
-					global.insert_jailx_address.setInt(1, last_insert_id);
-					global.insert_jailx_address.setString(2, address.getStreet_1());
-					global.insert_jailx_address.setString(3, address.getStreet_2());
-					global.insert_jailx_address.setString(4, address.getCity());
-					global.insert_jailx_address.setString(5, address.getState());
-					global.insert_jailx_address.setString(6, address.getZip());
-					global.insert_jailx_address.setString(7, address.getZip_4());
-					global.insert_jailx_address.setString(8, address.getCountry());
-					global.insert_jailx_address.execute();
-				}
-				
-				//Jailx - Charges
-				for (Jailx_charge charge : instance.getCharges()) {
-					global.insert_jailx_charge.setInt(1, last_insert_id);
-					global.insert_jailx_charge.setString(2, charge.getArresting_agency());
-					global.insert_jailx_charge.setString(3, charge.getGrade_of_charge().name());
-					global.insert_jailx_charge.setString(4, charge.getCharge_description());
-					global.insert_jailx_charge.setString(5, charge.getDisposition());
-					global.insert_jailx_charge.execute();
+				try {
+					//Jailx
+					global.insert_jailx.setInt(1, instance.getMid_number());
+					global.insert_jailx.setString(2, instance.getFirstname());
+					global.insert_jailx.setString(3, instance.getLastname());
+					global.insert_jailx.setString(4, instance.getSex());
+					global.insert_jailx.setString(5, instance.getRace());
+					global.insert_jailx.setString(6, instance.getYear_of_birth());
+					global.insert_jailx.setInt(7, instance.getHeight());
+					global.insert_jailx.setInt(8, instance.getWeight());
+					global.insert_jailx.setTimestamp(9, new Timestamp(instance.getBooking_date().getTime()));
+					global.insert_jailx.setTimestamp(10, (instance.getReleased_date() == null) ? null : new Timestamp(instance.getReleased_date().getTime()));
+					global.insert_jailx.setDouble(11, instance.getBond_amount());
+					global.insert_jailx.setString(12, instance.getCase_number());
+					global.insert_jailx.setString(13, instance.getPolice_case_number());
+					global.insert_jailx.setString(14, instance.getVisitation());
+					global.insert_jailx.setBoolean(15, instance.isPhoto());
+					global.insert_jailx.setTimestamp(16, new Timestamp(lastUpdate.getTime()));
+					global.insert_jailx.execute();
+					
+					int last_insert_id = 1;
+					ResultSet rs = global.select_last_insert_id.executeQuery();
+					if (rs.next()) last_insert_id = rs.getInt(1);
+					
+					//Jailx - Address
+					Jailx_address address = instance.getAddress();
+					if (address != null) {
+						global.insert_jailx_address.setInt(1, last_insert_id);
+						global.insert_jailx_address.setString(2, address.getStreet());
+						global.insert_jailx_address.setString(3, address.getCity());
+						global.insert_jailx_address.setString(4, address.getState());
+						global.insert_jailx_address.setString(5, address.getZip());
+						global.insert_jailx_address.execute();
+					}
+					
+					//Jailx - Charges
+					for (Jailx_charge charge : instance.getCharges()) {
+						global.insert_jailx_charge.setInt(1, last_insert_id);
+						global.insert_jailx_charge.setString(2, charge.getArresting_agency());
+						global.insert_jailx_charge.setString(3, charge.getGrade_of_charge());
+						global.insert_jailx_charge.setString(4, charge.getCharge_description());
+						global.insert_jailx_charge.setString(5, charge.getDisposition());
+						global.insert_jailx_charge.execute();
+					}
+				} catch (Exception e) {
+					System.out.println(instance);
+					e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
@@ -284,9 +304,16 @@ public class JailxParser extends JailParser {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param args filename, photo[off]
+	 */
 	public static void main(String[] args) {
+		if (args.length == 2)
+			getPhoto = true;
+		
 		JailxParser jailxParser = new JailxParser();
-		jailxParser.openFile("jailcurrent.asp");
+		jailxParser.openFile(args[0]);
 		jailxParser.parseTable();
 		jailxParser.parseAdditional();
 		jailxParser.dataToSQL();
