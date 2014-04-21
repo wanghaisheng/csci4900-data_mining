@@ -32,6 +32,11 @@ public class GlobalDB {
 	public PreparedStatement insert_jailx_address;
 	public PreparedStatement insert_jailx_charge;
 	
+	//Booking
+	public PreparedStatement insert_booking;
+	public PreparedStatement insert_booking_address;
+	public PreparedStatement insert_booking_charge;
+	
 	//Tools
 	public PreparedStatement disable_foreignkey;
 	public PreparedStatement select_last_insert_id;
@@ -79,6 +84,15 @@ public class GlobalDB {
 			
 			//Jailx - Charge
 			insert_jailx_charge = conn.prepareStatement("INSERT INTO jailx_charge(jailx_id_1,arresting_agency,grade_of_charge,charge_description,disposition) VALUES(?,?,?,?,?)");
+			
+			//Booking
+			insert_booking = conn.prepareStatement("INSERT INTO booking(mid_number,firstname,lastname,year_of_birth,race,sex,height,weight,photo) VALUES(?,?,?,?,?,?,?,?,?)");
+			
+			//Booking - Address
+			insert_booking_address = conn.prepareStatement("INSERT INTO booking_address(booking_id,street,city,state,zip) VALUES(?,?,?,?,?)");
+			
+			//Booking - Charge
+			insert_booking_charge = conn.prepareStatement("INSERT INTO booking_charge(booking_idx,booking_date,released_date,arresting_agency,grade_of_charge,charge_description,court_jurisdiction,bonding_company,bond_amount,disposition,warrant_number,police_case_number,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			
 			//Tool
 			disable_foreignkey = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");

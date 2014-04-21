@@ -305,7 +305,7 @@ public class JailxParser extends JailParser {
 	}
 	
 	/**
-	 * 
+	 * Main
 	 * @param args filename, photo[off]
 	 */
 	public static void main(String[] args) {

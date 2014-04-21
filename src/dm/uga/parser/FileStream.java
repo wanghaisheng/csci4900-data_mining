@@ -33,7 +33,7 @@ public class FileStream {
 	}
 	
 	/**
-	 * Checks if there is next line in route file
+	 * Checks if there is next line
 	 * @return if line in file is not blank
 	 */
 	public boolean next() {
