@@ -31,14 +31,11 @@ public class BookingCSVParser {
 	}
 	
 	public void parse() {
-		int counter = 0;
 		while (stream.next()) {
 			BookingCSV csv = stream.nextBooking();
 			
 			if (csv == null)
 				continue;
-			
-			counter++;
 			
 			if (bookingMap.containsKey(csv.getMid_number())) {
 				bookingMap.get(csv.getMid_number()).addCharge(new Booking_charge(csv.getBooking_date(), csv.getRelease_date(), 
@@ -57,7 +54,6 @@ public class BookingCSVParser {
 			bookingMap.put(csv.getMid_number(), booking);
 			
 		}
-		System.out.println(counter);
 	}
 	
 	public void tableToSQL() {
