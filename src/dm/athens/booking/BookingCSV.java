@@ -108,21 +108,3 @@ public class BookingCSV {
 	/** @return the mid_number */
 	public int getMid_number() {return mid_number;}
 }
-
-/*
--MID#
--BOOKING TIME
--NAME
--YEAR OF BIRTH
--RACE
--SEX
--ARRESTING AGENCY
--RELEASE TIME
--CHARGE
--CRIME TYPE
--COURT JURISDICTION
--BONDING COMPANY
--BOND AMOUNT
--WARRANT #
--POLICE CASE#
-*/
