@@ -60,4 +60,16 @@ FROM jailx
         ON jailx.id = jailx_charge.jailx_id_1
 LIMIT 20;
 
+-- Booking Join
+SELECT booking.*,
+	booking_address.*,
+	booking_charge.*
+FROM booking
+	LEFT JOIN booking_address
+		ON booking.id = booking_address.booking_id
+	JOIN booking_charge
+		ON booking.id = booking_charge.booking_idx
+LIMIT 20;
+
+
 
