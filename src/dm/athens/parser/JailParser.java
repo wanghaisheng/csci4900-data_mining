@@ -100,11 +100,11 @@ public class JailParser {
 				
 				//CASE NUMBER
 				String case_number = column.get(7).text().replace("\u00a0",""); //remove "&nbsp;"
-				if (case_number.equals("")) case_number = null; //no case number -> null
+				if (case_number.isEmpty()) case_number = null; //no case number -> null
 				
 				//POLICE CASE#
 				String police_case_number = column.get(8).text().replace("\u00a0",""); //remove "&nbsp;"
-				if (police_case_number.equals("")) police_case_number = null; //no police case # -> null
+				if (police_case_number.isEmpty()) police_case_number = null; //no police case # -> null
 				
 				//YEAR OF BIRTH
 				String year_of_birth = column.get(9).text();

@@ -1,5 +1,13 @@
 package dm.athens.parser;
 
+/**
+ * Parses CSV Data File
+ * 
+ * @author Vincent Lee
+ * @since April 18, 2014
+ * @version 1.0
+ */
+
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -9,14 +17,6 @@ import dm.athens.booking.Booking;
 import dm.athens.booking.BookingCSV;
 import dm.athens.booking.Booking_charge;
 import dm.dao.GlobalDB;
-
-/**
- * Parses CSV Data File
- * 
- * @author Vincent Lee
- * @since April 18, 2014
- * @version 1.0
- */
 
 public class BookingCSVParser {
 	private CSVStream stream;

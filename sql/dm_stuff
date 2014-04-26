@@ -14,8 +14,14 @@ SELECT * FROM jailx LIMIT 20;
 SELECT * FROM jailx_address LIMIT 20;
 SELECT * FROM jailx_charge LIMIT 20;
 SELECT * FROM booking LIMIT 20;
+SELECT id FROM booking WHERE mid_number=4411;
 SELECT * FROM booking_address LIMIT 20;
 SELECT * FROM booking_charge LIMIT 20;
+SELECT * FROM booking_charge WHERE last_update IS NOT NULL;
+SELECT id FROM booking_charge WHERE booking_idx=4 AND booking_date='2014-03-06 05:19:00' AND charge_description='LOITERING/PROWLING';
+
+-- partial sub-string match
+SELECT * FROM booking_charge WHERE charge_description LIKE '%dog%';
 
 -- remove data & reset auto increment id
 TRUNCATE TABLE student_listings;

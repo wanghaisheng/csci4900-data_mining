@@ -36,6 +36,9 @@ public class GlobalDB {
 	public PreparedStatement insert_booking;
 	public PreparedStatement insert_booking_address;
 	public PreparedStatement insert_booking_charge;
+	public PreparedStatement select_id_from_booking_where_mid_number;
+	public PreparedStatement select_id_from_booking_charge_where_booking_idx_and_booking_date_and_charge_description;
+	public PreparedStatement update_booking_charge_where_id;
 	
 	//Tools
 	public PreparedStatement disable_foreignkey;
@@ -87,12 +90,15 @@ public class GlobalDB {
 			
 			//Booking
 			insert_booking = conn.prepareStatement("INSERT INTO booking(mid_number,firstname,lastname,year_of_birth,race,sex,height,weight,photo) VALUES(?,?,?,?,?,?,?,?,?)");
+			select_id_from_booking_where_mid_number = conn.prepareStatement("SELECT id FROM booking WHERE mid_number=?");
 			
 			//Booking - Address
 			insert_booking_address = conn.prepareStatement("INSERT INTO booking_address(booking_id,street,city,state,zip) VALUES(?,?,?,?,?)");
 			
 			//Booking - Charge
 			insert_booking_charge = conn.prepareStatement("INSERT INTO booking_charge(booking_idx,booking_date,released_date,arresting_agency,grade_of_charge,charge_description,court_jurisdiction,bonding_company,bond_amount,disposition,warrant_number,police_case_number,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			select_id_from_booking_charge_where_booking_idx_and_booking_date_and_charge_description = conn.prepareStatement("SELECT id FROM booking_charge where booking_idx=? AND booking_date=? AND charge_description=?");
+			update_booking_charge_where_id = conn.prepareStatement("UPDATE booking_charge SET booking_date=?,released_date=?,arresting_agency=?,grade_of_charge=?,charge_description=?,court_jurisdiction=?,bonding_company=?,bond_amount=?,disposition=?,warrant_number=?,police_case_number=?,last_update=? WHERE id=?");
 			
 			//Tool
 			disable_foreignkey = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
