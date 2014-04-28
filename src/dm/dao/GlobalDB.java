@@ -39,6 +39,8 @@ public class GlobalDB {
 	public PreparedStatement select_id_from_booking_where_mid_number;
 	public PreparedStatement select_id_from_booking_charge_where_booking_idx_and_booking_date_and_charge_description;
 	public PreparedStatement update_booking_charge_where_id;
+	public PreparedStatement select_boocking_charge_where_grade_of_charge;
+	public PreparedStatement update_booking_charge_where_id_grade_of_charge;
 	
 	//Tools
 	public PreparedStatement disable_foreignkey;
@@ -99,6 +101,8 @@ public class GlobalDB {
 			insert_booking_charge = conn.prepareStatement("INSERT INTO booking_charge(booking_idx,booking_date,released_date,arresting_agency,grade_of_charge,charge_description,court_jurisdiction,bonding_company,bond_amount,disposition,warrant_number,police_case_number,last_update) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			select_id_from_booking_charge_where_booking_idx_and_booking_date_and_charge_description = conn.prepareStatement("SELECT id FROM booking_charge where booking_idx=? AND booking_date=? AND charge_description=?");
 			update_booking_charge_where_id = conn.prepareStatement("UPDATE booking_charge SET booking_date=?,released_date=?,arresting_agency=?,grade_of_charge=?,charge_description=?,court_jurisdiction=?,bonding_company=?,bond_amount=?,disposition=?,warrant_number=?,police_case_number=?,last_update=? WHERE id=?");
+			select_boocking_charge_where_grade_of_charge = conn.prepareStatement("SELECT * FROM booking_charge WHERE grade_of_charge=?");
+			update_booking_charge_where_id_grade_of_charge = conn.prepareStatement("UPDATE booking_charge SET grade_of_charge=? WHERE id=?");
 			
 			//Tool
 			disable_foreignkey = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
