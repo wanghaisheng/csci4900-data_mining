@@ -1,6 +1,5 @@
 package dm.athens.parser;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import dm.dao.GlobalDB;
@@ -39,9 +38,7 @@ public class BookingGradeFix {
 			
 			ResultSet rs = global.select_boocking_charge_where_grade_of_charge.executeQuery();
 			
-			int counter = 0;
 			while (rs.next()) {
-				counter++;
 				global.update_booking_charge_where_id_grade_of_charge.setString(1, "FELONY");
 				global.update_booking_charge_where_id_grade_of_charge.setInt(2, rs.getInt("id"));
 				global.update_booking_charge_where_id_grade_of_charge.executeUpdate();

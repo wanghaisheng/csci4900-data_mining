@@ -282,7 +282,7 @@ public class BookingParser {
 	
 	public static void main(String[] args) {
 		BookingParser parser = new BookingParser();
-		parser.openFile("04-27-2014.html");
+		parser.openFile("html/05-02-2014.html");
 		parser.parseTable();
 		parser.tableToSQL();
 	}
