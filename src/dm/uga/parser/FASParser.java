@@ -8,13 +8,8 @@ package dm.uga.parser;
  * @version 1.0
  */
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
-
 import dm.dao.GlobalDB;
-import dm.uga.fas.Faculty_and_staff;
 
 public class FASParser {
 	FileStream fileStream;

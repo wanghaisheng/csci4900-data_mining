@@ -80,3 +80,13 @@ SELECT * , ltrim(Left(firstname, CHARINDEX(' ',firstname + ' ' ))) FROM booking;
 SELECT SUBSTRING_INDEX(firstname , ' ', 1) AS `field_first_word`
 FROM  booking;
 
+-- arresting agency check
+SELECT booking.*, booking_charge.*
+FROM booking, booking_charge
+WHERE booking.id = booking_charge.booking_idx
+AND sl_id IS NOT NULL
+AND rownum=1
+;
+
+-- EXPORT
+SELECT * FROM booking WHERE fas_id IS NOT NULL;

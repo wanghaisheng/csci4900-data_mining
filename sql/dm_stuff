@@ -16,7 +16,7 @@ SELECT * FROM jailx_charge LIMIT 20;
 SELECT * FROM booking LIMIT 20;
 SELECT id FROM booking WHERE mid_number=4411;
 SELECT * FROM booking_address LIMIT 20;
-SELECT * FROM booking_charge LIMIT 20;;
+SELECT * FROM booking_charge LIMIT 20;
 SELECT * FROM booking_charge WHERE last_update IS NOT NULL;
 SELECT * FROM booking_charge WHERE id=5;
 SELECT * FROM booking_charge WHERE grade_of_charge="F";
