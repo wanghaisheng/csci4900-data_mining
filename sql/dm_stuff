@@ -16,7 +16,7 @@ SELECT * FROM jailx_charge LIMIT 20;
 SELECT * FROM booking LIMIT 20;
 SELECT id FROM booking WHERE mid_number=4411;
 SELECT * FROM booking_address LIMIT 20;
-SELECT * FROM booking_charge LIMIT 20;
+SELECT * FROM booking_charge;
 SELECT * FROM booking_charge WHERE last_update IS NOT NULL;
 SELECT * FROM booking_charge WHERE grade_of_charge="F";
 
@@ -70,14 +70,13 @@ LIMIT 20;
 
 -- Booking Join
 SELECT booking.*,
-	booking_address.*,
 	booking_charge.*
 FROM booking
-	LEFT JOIN booking_address
-		ON booking.id = booking_address.booking_id
 	JOIN booking_charge
 		ON booking.id = booking_charge.booking_idx
 LIMIT 20;
 
-
-
+-- add 'charge_category'
+ALTER TABLE `booking_charge` ADD charge_category VARCHAR(255) NULL AFTER `grade_of_charge`;
+ALTER TABLE booking_charge DROP charge_category;
+DESCRIBE booking_charge;
