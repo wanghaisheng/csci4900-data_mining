@@ -11,108 +11,75 @@ package dm.uga.parser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 import dm.dao.GlobalDB;
 import dm.uga.fas.Faculty_and_staff;
 
 public class FASParser {
 	FileStream fileStream;
-	List<Faculty_and_staff> fas;
 	String line;
+	GlobalDB global;
 	
 	public FASParser(String filename) {
 		fileStream = new FileStream();
 		fileStream.openFile(filename);
-		fas = new ArrayList<Faculty_and_staff>();
-	}
-	
-	public String advance() {
-		return (fileStream.next()) ? line = fileStream.nextLine() : null;
+		global = new GlobalDB();
 	}
 	
 	public void parse() {
+		global.openDBconnection();
+		
+		Stack<String> stack = new Stack<String>();
+		String line = "";
+		
 		while (fileStream.next()) {
 			line = fileStream.nextLine();
 			
-			//TODO: parse on ".." not email
-			start:
-			if (line.endsWith(",")) {
-				//TODO: last name "ADAS FDFD" -> "Adas Fdfd"
-				System.out.println("l-"+ line.substring(0, 1) + line.substring(1, line.length()-1).toLowerCase());
-//				advance();
-				ArrayList<String> tokens = new ArrayList<String>();		
-				Scanner tokenize = new Scanner(advance());
-				while (tokenize.hasNext())
-				    tokens.add(tokenize.next());
-				tokenize.close();
-//				System.out.println(tokens);
+			if (line.startsWith(".")) {
+				String firstname = stack.pop();
+				String lastname = stack.pop();
+				String extra = "";
+				if (!lastname.contains(","))
+					extra = stack.pop();
 				
-				if (tokens.get(tokens.size()-1).length() == 1)
-					System.out.println("m-" + tokens.remove(tokens.size()-1));
 				
-				String firstname = "";
-				for (String str : tokens)
-					firstname += str + " ";
-				firstname = firstname.trim();
-				
-				System.out.println("f-" + firstname);
-				
-//				System.out.println(line);
-//				return;
-//				System.out.println(advance());
-				
-				advance();
-				if (line.contains("..")) {
-					System.out.println("p-" + advance());
-					System.out.println("t-" + advance());
-				} else {
-					System.out.println("t-" + line);
+				if (!extra.equals("")) {
+					//firstname
+					String temp = lastname.trim() + " " + firstname.trim();
+					firstname = temp;
+					
+					//lastname
+					lastname = extra;
 				}
-					
 				
+				//all lastname
+				lastname = lastname.replaceAll(",", "");
+				lastname = lastname.trim();
 				
-				advance();
-				do {
-					
-					if (line.contains(","))
-						break start;
-					
-					System.out.println(line);
-					
-					advance();
-				} while (!line.contains("@"));
+				//clear the stack
+				stack.clear();
 				
-				System.out.println("e-" + line);
-				
-//				return;
-			} else {
-//				System.out.println(line);
-			}
-			
-//			System.out.println(line);
-			
+				//commit to sql
+				toSQL(firstname, lastname);
+			} else
+				stack.push(line);
+		}
+		
+		global.closeDBconnection();
+	}
+	
+	public void toSQL(String firstname, String lastname) {
+		try {
+			global.insert_student_listings.setString(1, firstname);
+			global.insert_student_listings.setString(2, lastname);
+			global.insert_student_listings.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * @return the fas
-	 */
-	public List<Faculty_and_staff> getFAS() {
-		return fas;
-	}
-
-	/**
-	 * @param fas the fas to set
-	 */
-	public void setFas(List<Faculty_and_staff> fas) {
-		this.fas = fas;
-	}
-
 	public static void main(String[] args) {
-		new FASParser("45").parse();
-		GlobalDB global = new GlobalDB();
-//		global.openDBconnection();
-//		System.out.println("fas");
-//		new faculty_and_staff("", "", "", "");
+		new FASParser("sl_merged").parse();
 	}
 }

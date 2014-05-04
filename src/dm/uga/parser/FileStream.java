@@ -8,12 +8,14 @@ package dm.uga.parser;
  * @version 1.0
  */
 
+import java.io.File;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class FileStream {
 	private String line;
-	private BufferedReader reader;
+	private BufferedReader scanner;
 	
 	public FileStream() {}
 	
@@ -24,7 +26,8 @@ public class FileStream {
 	 */
 	public boolean openFile(String filename) {
 		try {
-			reader = new BufferedReader(new FileReader(filename));
+//			scanner = new Scanner(new File(filename));
+			scanner = new BufferedReader(new FileReader(filename));
 			return true;
 		} catch (Exception e) {
 			System.out.println("error: openFile");
@@ -39,7 +42,7 @@ public class FileStream {
 	public boolean next() {
 		try {
 			//if has next line exists, read line
-			if ((line = reader.readLine()) != null)
+			if ((line = scanner.readLine()) != null)
 				return true;
 		} catch (Exception e) {
 			System.out.println("error: next");

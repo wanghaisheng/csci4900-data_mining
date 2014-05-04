@@ -16,9 +16,11 @@ SELECT * FROM jailx_charge LIMIT 20;
 SELECT * FROM booking LIMIT 20;
 SELECT id FROM booking WHERE mid_number=4411;
 SELECT * FROM booking_address LIMIT 20;
-SELECT * FROM booking_charge;
+SELECT * FROM booking_charge LIMIT 20;;
 SELECT * FROM booking_charge WHERE last_update IS NOT NULL;
+SELECT * FROM booking_charge WHERE id=5;
 SELECT * FROM booking_charge WHERE grade_of_charge="F";
+SELECT * FROM jailx_charge where grade_of_charge='';
 
 SELECT id FROM booking_charge WHERE booking_idx=4 AND booking_date='2014-03-06 05:19:00' AND charge_description='LOITERING/PROWLING';
 
@@ -57,6 +59,10 @@ SELECT * FROM booking PROCEDURE ANALYSE();
 SELECT * FROM booking_address PROCEDURE ANALYSE();
 SELECT * FROM booking_charge PROCEDURE ANALYSE();
 
+SELECT COUNT(*) FROM student_listings;
+SELECT COUNT(*) FROM faculty_and_staff;
+SELECT COUNT(*) FROM booking;
+
 -- Jail Extended Join
 SELECT jailx.*, 
 	jailx_address.street, jailx_address.city, jailx_address.state, jailx_address.zip, 
@@ -80,3 +86,17 @@ LIMIT 20;
 ALTER TABLE `booking_charge` ADD charge_category VARCHAR(255) NULL AFTER `grade_of_charge`;
 ALTER TABLE booking_charge DROP charge_category;
 DESCRIBE booking_charge;
+
+-- swap lastname and firstname
+Alter table booking CHANGE lastnamee lastname VARCHAR(255);
+
+-- delete height weight and photo
+ALTER TABLE booking DROP photo;
+
+-- add foreigh keys to
+ALTER TABLE booking ADD sl_id  INT(10) unsigned DEFAULT NULL AFTER sex;
+ALTER TABLE booking ADD fas_id  INT(10) unsigned DEFAULT NULL AFTER sl_id;
+
+ALTER TABLE booking
+ADD FOREIGN KEY (fas_id)
+REFERENCES faculty_and_staff(id);
