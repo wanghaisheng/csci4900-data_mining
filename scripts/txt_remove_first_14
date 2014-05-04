@@ -1,0 +1,12 @@
+#!/bin/bash
+# swf_to_text fas
+# where fas is the folder containing .swf
+FILES=$1/*
+for f in $FILES
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+  swfstrings $f > ../${f%.*}
+  # prints out filename only
+  # echo ${f%.*}.txt
+done
