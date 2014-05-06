@@ -1,3 +1,10 @@
 wget http://api.athensclarkecounty.com/sheriff/jail/jailcurrent.asp --referer=http://athensclarkecounty.com/1299/Current-List-of-Inmates-Clarke-County-Ja --output-document=booking.asp-$(date +'%Y%m%d')
 
 wget http://api.athensclarkecounty.com/sheriff/jail/jailcurrent.asp --referer=http://athensclarkecounty.com/1299/Current-List-of-Inmates-Clarke-County-Ja -O booking.asp-$(date +'%Y%m%d')
+
+
+#!/bin/bash
+NOW=$(date +"%Y%m%d")
+
+wget http://api.athensclarkecounty.com/sheriff/jail/bookingreport.asp --referer=http://athensclarkecounty.com/1298/Arrests-from-the-Last-7-Days -O ~/Booking/booking.asp-$NOW
+

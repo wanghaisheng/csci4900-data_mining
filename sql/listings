@@ -18,10 +18,17 @@ UPDATE booking, faculty_and_staff SET booking.fas_id=faculty_and_staff.id
 WHERE booking.lastname=faculty_and_staff.lastname AND booking.firstname=faculty_and_staff.firstname;
 
 
+SELECT booking.id, booking.firstname, student_listings.firstname, booking.lastname, student_listings.id,  student_listings.lastname
+FROM booking,student_listings
+WHERE booking.lastname=student_listings.lastname AND student_listings.firstname LIKE CONCAT(SUBSTRING_INDEX(booking.firstname, ' ', 1), '%')
+AND booking.sl_id IS NULL AND booking.fas_id IS NULL
+;
+
+
 -- PARTIAL MATCHES (same first name, manual filtering)
 -- ---------------------------
 -- Non-Exact Match Students
-SELECT booking.id, booking.firstname, student_listings.firstname, booking.lastname, student_listings.id,  student_listings.lastname
+SELECT booking.id, booking.firstname, student_listings.firstname, booking.lastname, student_listings.id, student_listings.lastname
 FROM booking,student_listings
 WHERE booking.lastname=student_listings.lastname AND student_listings.firstname LIKE CONCAT(SUBSTRING_INDEX(booking.firstname, ' ', 1), '%')
 AND booking.sl_id IS NULL AND booking.fas_id IS NULL
