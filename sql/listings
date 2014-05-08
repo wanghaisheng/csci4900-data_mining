@@ -18,11 +18,6 @@ UPDATE booking, faculty_and_staff SET booking.fas_id=faculty_and_staff.id
 WHERE booking.lastname=faculty_and_staff.lastname AND booking.firstname=faculty_and_staff.firstname;
 
 
-SELECT booking.id, booking.firstname, student_listings.firstname, booking.lastname, student_listings.id,  student_listings.lastname
-FROM booking,student_listings
-WHERE booking.lastname=student_listings.lastname AND student_listings.firstname LIKE CONCAT(SUBSTRING_INDEX(booking.firstname, ' ', 1), '%')
-AND booking.sl_id IS NULL AND booking.fas_id IS NULL
-;
 
 
 -- PARTIAL MATCHES (same first name, manual filtering)
@@ -34,6 +29,7 @@ WHERE booking.lastname=student_listings.lastname AND student_listings.firstname 
 AND booking.sl_id IS NULL AND booking.fas_id IS NULL
 AND booking.id NOT IN(1096,290,7,64,44,9,132,234,182,203,211,303,334,365,432,470,516,514,455,548,542,547,550,608,625,773,731,754,730,752,873,844,883,831,804,906,916,911,982,1054,983,1105,1141,1160,1200,1211,1318,1326,1419,1418,1398,1403,1431,1487,1505,1469,1550,1576,1534,1717,1671,1795,1750,1753,1733,1809,1774,1801,1885)
 AND student_listings.id NOT IN(8269,3842);
+
 -- Set foreign key if it matches Students
 UPDATE booking, student_listings SET booking.sl_id=student_listings.id 
 WHERE booking.lastname=student_listings.lastname AND student_listings.firstname LIKE CONCAT(SUBSTRING_INDEX(booking.firstname, ' ', 1), '%')
@@ -55,6 +51,41 @@ AND booking.sl_id IS NULL AND booking.fas_id IS NULL
 AND booking.id NOT IN(84, 64, 168, 250, 436, 600, 542, 533, 773, 752, 819, 906, 916, 1671, 1505, 1165, 1141, 1058, 984, 982, 905, 1885, 7, 682)
 AND faculty_and_staff.id NOT IN(295, 374);
 
+
+-- All Student charges
+SELECT * FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE sl_id IS NOT NULL);
+-- All Faculty charges
+SELECT * FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE fas_id IS NOT NULL);
+
+
+-- Arresting Agency Student
+SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE sl_id IS NOT NULL) GROUP BY arresting_agency;
+-- Arresting Faculty Student
+SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE fas_id IS NOT NULL) GROUP BY arresting_agency;
+
+
+-- Number of Charges
+-- Student  arresting_agency='ugapd' AND 
+SELECT * FROM booking_charge WHERE id IN (SELECT id FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE sl_id IS NOT NULL)
+GROUP BY booking_idx HAVING count(*) = 1) ;
+-- Faculty
+SELECT * FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE fas_id IS NOT NULL)
+GROUP BY booking_idx HAVING count(*) = 1;
+
+-- this a bad nigga
+SELECT * FROM booking_charge WHERE booking_idx = 1629;
+-- this provides his birf name
+SELECT booking.*, booking_charge.*
+FROM booking
+	JOIN booking_charge
+		ON booking.id = booking_charge.booking_idx
+WHERE booking_idx= 1629;
 
 
 
