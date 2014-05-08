@@ -70,6 +70,11 @@ SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN (
 -- Arresting Agency NOT Student or Faculty
 SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
 	SELECT id FROM booking WHERE sl_id IS NULL AND fas_id IS NULL) GROUP BY arresting_agency;
+-- Arresting Agency UGA
+SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+	SELECT id FROM booking WHERE sl_id IS NOT NULL OR fas_id IS NOT NULL) GROUP BY arresting_agency;
+-- Arresting Agency ALL
+SELECT arresting_agency, count(*) FROM booking_charge GROUP BY arresting_agency;
 
 -- Number of Charges
 -- Student
@@ -89,7 +94,7 @@ GROUP BY arresting_agency;
 
 -- this a bad nigga
 SELECT * FROM booking_charge WHERE booking_idx = 1629;
--- this provides his birf name
+-- this provides his birf name and info
 SELECT booking.*, booking_charge.*
 FROM booking
 	JOIN booking_charge
