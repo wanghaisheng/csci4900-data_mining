@@ -62,34 +62,34 @@ SELECT * FROM booking_charge WHERE booking_idx IN (
 	SELECT id FROM booking WHERE fas_id IS NOT NULL);
 
 -- Arresting Agency Student
-SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+SELECT arresting_agency, COUNT(*) FROM booking_charge WHERE booking_idx IN ( 
 	SELECT id FROM booking WHERE sl_id IS NOT NULL) GROUP BY arresting_agency;
 -- Arresting Faculty Faculty
-SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+SELECT arresting_agency, COUNT(*) FROM booking_charge WHERE booking_idx IN ( 
 	SELECT id FROM booking WHERE fas_id IS NOT NULL) GROUP BY arresting_agency;
 -- Arresting Agency NOT Student or Faculty
-SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+SELECT arresting_agency, COUNT(*) FROM booking_charge WHERE booking_idx IN ( 
 	SELECT id FROM booking WHERE sl_id IS NULL AND fas_id IS NULL) GROUP BY arresting_agency;
 -- Arresting Agency UGA
-SELECT arresting_agency, count(*) FROM booking_charge WHERE booking_idx IN ( 
+SELECT arresting_agency, COUNT(*) FROM booking_charge WHERE booking_idx IN ( 
 	SELECT id FROM booking WHERE sl_id IS NOT NULL OR fas_id IS NOT NULL) GROUP BY arresting_agency;
 -- Arresting Agency ALL
-SELECT arresting_agency, count(*) FROM booking_charge GROUP BY arresting_agency;
+SELECT arresting_agency, COUNT(*) FROM booking_charge GROUP BY arresting_agency;
 
 -- Number of Charges
 -- Student
-SELECT arresting_agency, count(*) FROM (
+SELECT arresting_agency, COUNT(*) FROM (
 	SELECT * FROM booking_charge WHERE booking_idx IN ( 
 		SELECT id FROM booking WHERE sl_id IS NOT NULL)
 	-- change count to vary # of charges   +
-	GROUP BY booking_idx HAVING count(*) = 1) alias
+	GROUP BY booking_idx HAVING COUNT(*) = 1) alias
 GROUP BY arresting_agency;
 -- Faculty
-SELECT arresting_agency, count(*) FROM (
+SELECT arresting_agency, COUNT(*) FROM (
 	SELECT * FROM booking_charge WHERE booking_idx IN ( 
 		SELECT id FROM booking WHERE fas_id IS NOT NULL)
 	-- change count to vary # of charges   +
-	GROUP BY booking_idx HAVING count(*) = 1) alias
+	GROUP BY booking_idx HAVING COUNT(*) = 1) alias
 GROUP BY arresting_agency;
 
 -- this a bad nigga
@@ -101,7 +101,22 @@ FROM booking
 		ON booking.id = booking_charge.booking_idx
 WHERE booking_idx= 1629;
 
+-- all charges most popular
+SELECT charge_description, COUNT(*) FROM booking_charge GROUP BY charge_description;
 
+-- charges per date
+SELECT CHAR(SUBSTRING_INDEX(CHAR(booking_date), ' ', 1)), COUNT(*) FROM booking_charge GROUP BY SUBSTRING_INDEX(booking_date, ' ', 1);
+
+-- people arrested per day
+SELECT DATE(booking_date) AS ForDate, COUNT(*) AS NumArrests
+FROM (SELECT * FROM booking_charge GROUP BY booking_idx HAVING COUNT(*) < 100) as a
+GROUP BY DATE(booking_date)
+ORDER BY ForDate;
+
+-- time in jail
+SELECT TIMESTAMPDIFF(MINUTE, booking_date, released_date) as alias, COUNT(*)  FROM booking_charge WHERE released_date IS NOT NULL group by alias;
+
+SELECT * FROM booking_charge where booking_date LIKE '2014-01-30%';
 
 -- Students
 SELECT booking.*,
@@ -125,20 +140,9 @@ SELECT count(*) FROM booking WHERE fas_id IS NULL AND sl_id IS NULL;
 SELECT count(*) FROM booking WHERE fas_id IS NOT NULL OR sl_id IS NOT NULL;
 
 
-
-SELECT * , ltrim(Left(firstname, CHARINDEX(' ',firstname + ' ' ))) FROM booking;
-
-
-SELECT SUBSTRING_INDEX(firstname , ' ', 1) AS `field_first_word`
+SELECT SUBSTRING_INDEX(firstname , ' ', 1) AS alias
 FROM  booking;
 
--- arresting agency check
-SELECT booking.*, booking_charge.*
-FROM booking, booking_charge
-WHERE booking.id = booking_charge.booking_idx
-AND sl_id IS NOT NULL
-AND rownum=1
-;
 
 -- EXPORT
 SELECT * FROM booking WHERE fas_id IS NOT NULL;
