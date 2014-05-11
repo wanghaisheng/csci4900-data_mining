@@ -106,4 +106,4 @@ Copies of **some** of Dr. Rasheed's lecture notes will be available at the botto
 **The course syllabus is a general plan for the course; deviations announced to the class by the instructor may be necessary.**
 
 Last modified: April 22, 2014.  
-[Khaled Rasheed](http://www.cs.uga.edu/~khaled) (khaled[at]uga.edu)
+[Khaled Rasheed](http://www.cs.uga.edu/~khaled) (khaled@uga.edu)
