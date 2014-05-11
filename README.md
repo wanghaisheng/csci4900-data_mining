@@ -46,7 +46,40 @@ A variety of materials will be made available on the [DM Class Home-page](http:/
 Copies of **some** of Dr. Rasheed's lecture notes will be available at the bottom of the class home page. Not all the lectures will have electronic notes though and the students should be prepared to take notes inside the lecture at any time.
 
 ##Textbook in Bookstore
-* "Data Mining: Practical Machine Learning Tools and Techniques (3rd edition)", Ian Witten, Eibe Frank & Mark Hall. Morgan Kaufmann, 2011. (Required)<br>ISBN-10: 0123748569 & ISBN-13: 978-0123748560 
+* "Data Mining: Practical Machine Learning Tools and Techniques (3rd edition)", Ian Witten, Eibe Frank & Mark Hall. Morgan Kaufmann, 2011. **(Required)<br>ISBN-10: 0123748569 & ISBN-13: 978-0123748560**
 
+##Web Resources
+* [The WEKA Machine Learning Project](http://www.cs.waikato.ac.nz/~ml)
+* [University of California at Irvine ML Repository](http://archive.ics.uci.edu/ml/)
+* [David Aha's Machine Learning Resources](http://home.earthlink.net/~dwaha/research/machine-learning.html)
 
+##Announcements:
+* [4-30-2014] The course project presentations will be done tomorrow at the time of the final exam (because there is no final exam). They will be done from 3:30pm to 6:30pm with 15 minutes per group in Geog/Geol room 200B. It will be a status report, giving a brief introduction, a summary of what was done and what remains to be done and if you have any questions to me or the class (especially if you are stuck or need help with some issue).
+* [4-30-2014] The course project reports are due on Friday, 5-9-2014 in my office (Boyd room 219B) by 6pm. For the project report format, please write it as a conference paper of about 8 two-column pages or 12 single-column pages (there is no restriction on size though). You should include a title, an abstract, an introduction, a mention of related work if any, a description of your experiments and results and a conclusion. In the introduction or elsewhere in the paper you should describe the domain that you applied your Data Mining technique(s) to, in enough detail for the reader to appreciate the significance and difficulty of the problem. Please bring a hard copy to my office (I will be at my office from 3pm to 6pm) or leave it in my mailbox in the CS department or the AI institute any time before 6pm. I shall collect all reports and leave at 6pm. Please also include your email addresses as well as the URLs of any demo/supporting web pages. There is a slight chance that I might contact you soon after the submission deadline (within 48 hours) requesting codes, clarifications or more data.
+* [4-16-2014] The second midterm will be on Thursday 4-24-2014. It will focus on the topics discussed in the course that were not covered by the first midterm. It will be open book and notes but the use of laptops or phones will not be allowed. Please bring your text book and a calculator to the exam. You should also bring your own lecture notes and all handouts.
+* [4-10-2014] Homework 5 is posted below and due next Thursday [4-17-2014].
+* [4-3-2014] Our class has moved permanently to room 200B due to renovations..
+* [3-19-2014] As announced in class some very nice data sets and competitions can be found on www.kaggle.com/competitions. Those would make for very nice course projects.
+* [2-27-2014] The first midterm will be on Thursday 3-6-2014. It will cover all the topics discussed in the course till today's lecture. It will be open book and notes but the use of laptops or phones will not be allowed. Please bring your text book to the exam. You should also bring your own lecture notes and all handouts. 
 
+##Papers
+* "Mining Large Streams of User Data for Personalized Recommendations" [Martin Koerner][4-3] {download}
+* "Big Data: A new era or just a temporary hype?" [Thomas Haas][4-3] {Presentation}
+* "A study on video data mining" [Jeffrey Swindle & Alex Tozzi][4-10] {download}
+* "Measuring and Detecting Malware Downloads in Live Network Traffic" [Phani Vadrevu][4-10] {download}
+* "Anatomy of a Web-Scale Resale Market: A Data Mining Approach" [Vincent Lee][4-15] {download}
+* "Web Usage Mining Survey" [Sara Vahid][4-16] {Presentation}
+* "Data Extraction from Web Pages Based on Structural-Semantic Entropy" 2012. [SeyedAmin][4-16] {download}
+* "Feature Selection: An Ever Evolving Frontier in Data Mining" 2010. [Anzah][4-16] {download}
+* "K-SVD algorithm and its implementation on brain functional connectivity measurement" [Pan Huang & Ruichen Dai][4-17] {related paper}
+* "Text and Structural Data Mining of Influenza Mentions in Web and Social Media" 2010. [Matthew Lisivick][4-17] {download}
+* "Ethical issues in web data mining" 2004. [Ryan Linnane, Jeffrey Klein][4-17] {download}
+* "INTRUSION DETECTION VIA FUZZY DATA MINING" 2000. [Paul Weiler][4-17] {download}
+* "Clustering by Passing Messages Between Data Points" 2007. [Eduardo Trujillo & Justin Hromalik][4-22] {download}
+* "Earthquake Shakes Twitter Users: Real-time Event Detection by Social Sensors" 2010. [Sahar][4-22] {download}
+* "To Buy or Not to Buy: Mining Airfare Data to Minimize Ticket Purchase Price" 2003. [Maulesh][4-22] {download}
+* "Educational data mining: A survey from 1995 to 2005" 2007. [Matthias Bohleber][4-22] {download}
+* "Private traits and attributes are predictable from digital records of human behavior" [Sai Krishna][4-22] {download}
+* "A review of feature selection techniques in bioinformatics" 2007. [Goer & Shovik][4-23] {download}
+* "Mining Multi-label Data" 2009. [Zhaochong Liu][4-23] {download}
+* "BoosTexter: A Boosting-based System for Text Categorization" 2000. [Guodong Zhu & Andrew Talian][4-23] {download} 
