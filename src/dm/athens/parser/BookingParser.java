@@ -3,6 +3,7 @@ package dm.athens.parser;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,13 +23,11 @@ import dm.dao.GlobalDB;
  * 
  * @author Vincent Lee
  * @since April 24, 2014
- * @version 1.0
+ * @version 2.0
  */
 
 public class BookingParser {
 	private static final boolean DEBUG = false;
-//	private final String detailsFront = "http://api.athensclarkecounty.com/sheriff/jail/details.asp?id=";
-//	private final String detailsEnd = "&pg=2";
 	private Map<Integer, Booking> bookingMap;
 	private GlobalDB global;
 	private Document doc;
@@ -59,7 +58,7 @@ public class BookingParser {
 			update = update.substring(firstColon+2); //remove "Last Updated: "
 			SimpleDateFormat lastUpdateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa"); // 4/14/2014 6:00:00 PM 
 			lastUpdate = lastUpdateFormat.parse(update);
-			if (DEBUG) System.out.println(lastUpdate.toLocaleString());
+			if (DEBUG) System.out.println("-LAST UPDATE- " + DateFormat.getDateTimeInstance().format(lastUpdate));
 			
 			//Get the table
 			Elements table = doc.select("tr");
@@ -103,7 +102,7 @@ public class BookingParser {
 				//ARRESTING AGENCY
 				String arresting_agency = column.get(6).text();
 				
-				//RELEASE TIME
+				//RELEASE DATE
 				String date1 = column.get(7).text().replace("\u00a0",""); //remove "&nbsp;"
 				Date release_date = null;
 				if (!date1.isEmpty()) {
@@ -111,11 +110,19 @@ public class BookingParser {
 					release_date = bookingFormat.parse(date1);
 				}
 				
-				//CHARGE
-				String charge = column.get(8).text();
+				//CHARGE DESCRIPTION
+				String charge_description = column.get(8).text();
 				
-				//CRIME TYPE
-				String crime_type = column.get(9).text();
+				//GRADE OF CHARGE
+				String grade_of_charge = column.get(9).text();
+				if (grade_of_charge.equalsIgnoreCase("M"))
+					grade_of_charge = "MISDEMEANOR";
+				else if (grade_of_charge.equalsIgnoreCase("F"))
+					grade_of_charge = "FELONY";
+				else if (grade_of_charge.equalsIgnoreCase("B"))
+					grade_of_charge = "TO BE DETERMINED";
+				else if (grade_of_charge.equalsIgnoreCase("null"))
+					grade_of_charge = null;
 				
 				//COURT JURISDICTION
 				String court_jurisdiction = column.get(10).text().replace("\u00a0","");
@@ -129,7 +136,7 @@ public class BookingParser {
 				String bond = column.get(12).text().substring(1).replace(",", ""); //remove $ and ","
 				double bond_amount = Double.parseDouble(bond);
 				
-				//WARRANT #
+				//WARRANT#
 				String warrant_number = column.get(13).text().replace("\u00a0",""); //remove "&nbsp;"
 				if (warrant_number.isEmpty()) warrant_number = null;
 				
@@ -141,22 +148,22 @@ public class BookingParser {
 				
 				
 				if (DEBUG) {
-					System.out.println(mid_number);
-					System.out.println(booking_date.toLocaleString());
-					System.out.println(firstname);
-					System.out.println(lastname);
-					System.out.println(year_of_birth);
-					System.out.println(race);
-					System.out.println(sex);
-					System.out.println(arresting_agency);
-					System.out.println(release_date);
-					System.out.println(charge);
-					System.out.println(crime_type);
-					System.out.println(court_jurisdiction);
-					System.out.println(bonding_company);
-					System.out.println(bond_amount);
-					System.out.println(warrant_number);
-					System.out.println(police_case_number);
+					System.out.println("mid-" + mid_number);
+					System.out.println("booking-" + DateFormat.getDateTimeInstance().format(booking_date));
+					System.out.println("first-" + firstname);
+					System.out.println("last-" + lastname);
+					System.out.println("year-" + year_of_birth);
+					System.out.println("race-" + race);
+					System.out.println("sex-" + sex);
+					System.out.println("agency-" + arresting_agency);
+					System.out.println("release-" + release_date);
+					System.out.println("charge-" + charge_description);
+					System.out.println("grade-" + grade_of_charge);
+					System.out.println("jurisdiction-" + court_jurisdiction);
+					System.out.println("bonding_company-" + bonding_company);
+					System.out.println("bond_amount-" + bond_amount);
+					System.out.println("warrant-" + warrant_number);
+					System.out.println("case-" + police_case_number);
 					System.out.println();
 					
 					if (++counter == 2) break;
@@ -168,23 +175,23 @@ public class BookingParser {
 				 */
 				if (bookingMap.containsKey(mid_number)) {
 					bookingMap.get(mid_number).addCharge(new Booking_charge(booking_date, release_date, 
-							arresting_agency, crime_type, charge, court_jurisdiction, bonding_company, 
-							bond_amount, null, warrant_number, police_case_number));
+							arresting_agency, grade_of_charge, charge_description, court_jurisdiction, bonding_company, 
+							bond_amount, warrant_number, police_case_number));
 					continue;
 				}
 				
 				
 				Booking booking = new Booking(mid_number, firstname, lastname, 
-						year_of_birth, race, sex, 0, 0, false);
+						year_of_birth, race, sex);
 				
 				booking.addCharge(new Booking_charge(booking_date, release_date, arresting_agency, 
-						crime_type, charge, court_jurisdiction, bonding_company, bond_amount, 
-						null, warrant_number, police_case_number));
+						grade_of_charge, charge_description, court_jurisdiction, bonding_company, bond_amount, 
+						warrant_number, police_case_number));
 				bookingMap.put(mid_number, booking);
 			}
 			
 			if (DEBUG) System.out.println(bookingMap.size());
-//			System.out.println(bookingMap);
+			if (DEBUG) System.out.println(bookingMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -216,9 +223,6 @@ public class BookingParser {
 					global.insert_booking.setString(4, value.getYear_of_birth());
 					global.insert_booking.setString(5, value.getRace());
 					global.insert_booking.setString(6, value.getSex());
-					global.insert_booking.setInt(7, value.getHeight());
-					global.insert_booking.setInt(8, value.getWeight());
-					global.insert_booking.setBoolean(9, false);
 					global.insert_booking.execute();
 					
 					rs = global.select_last_insert_id.executeQuery();
@@ -248,11 +252,10 @@ public class BookingParser {
 						global.update_booking_charge_where_id.setString(6, instance.getCourt_jurisdiction());
 						global.update_booking_charge_where_id.setString(7, instance.getBonding_company());
 						global.update_booking_charge_where_id.setDouble(8, instance.getBonding_amount());
-						global.update_booking_charge_where_id.setString(9, instance.getDisposition());
-						global.update_booking_charge_where_id.setString(10, instance.getWarrant_number());
-						global.update_booking_charge_where_id.setString(11, instance.getPolice_case_number());
-						global.update_booking_charge_where_id.setTimestamp(12, new Timestamp(lastUpdate.getTime()));
-						global.update_booking_charge_where_id.setInt(13, BOOKING_CHARGE_ID);
+						global.update_booking_charge_where_id.setString(9, instance.getWarrant_number());
+						global.update_booking_charge_where_id.setString(10, instance.getPolice_case_number());
+						global.update_booking_charge_where_id.setTimestamp(11, new Timestamp(lastUpdate.getTime()));
+						global.update_booking_charge_where_id.setInt(12, BOOKING_CHARGE_ID);
 						global.update_booking_charge_where_id.executeUpdate();
 					} else {
 						global.insert_booking_charge.setInt(1, SQL_ID);
@@ -264,10 +267,9 @@ public class BookingParser {
 						global.insert_booking_charge.setString(7, instance.getCourt_jurisdiction());
 						global.insert_booking_charge.setString(8, instance.getBonding_company());
 						global.insert_booking_charge.setDouble(9, instance.getBonding_amount());
-						global.insert_booking_charge.setString(10, instance.getDisposition());
-						global.insert_booking_charge.setString(11, instance.getWarrant_number());
-						global.insert_booking_charge.setString(12, instance.getPolice_case_number());
-						global.insert_booking_charge.setTimestamp(13, null);
+						global.insert_booking_charge.setString(10, instance.getWarrant_number());
+						global.insert_booking_charge.setString(11, instance.getPolice_case_number());
+						global.insert_booking_charge.setTimestamp(12, null);
 						global.insert_booking_charge.execute();
 					}
 				}
@@ -282,7 +284,7 @@ public class BookingParser {
 	
 	public static void main(String[] args) {
 		BookingParser parser = new BookingParser();
-		parser.openFile("html/05-02-2014.html");
+		parser.openFile("html/booking.asp-20140510");
 		parser.parseTable();
 		parser.tableToSQL();
 	}

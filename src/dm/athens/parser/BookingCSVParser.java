@@ -5,7 +5,7 @@ package dm.athens.parser;
  * 
  * @author Vincent Lee
  * @since April 18, 2014
- * @version 1.0
+ * @version 2.0
  */
 
 import java.sql.ResultSet;
@@ -40,17 +40,17 @@ public class BookingCSVParser {
 			if (bookingMap.containsKey(csv.getMid_number())) {
 				bookingMap.get(csv.getMid_number()).addCharge(new Booking_charge(csv.getBooking_date(), csv.getRelease_date(), 
 						csv.getArresting_agency(), csv.getCrime_type(), csv.getCharge(), csv.getCourt_jurisdiction(), csv.getBonding_company(), 
-						csv.getBonding_amount(), null, csv.getWarrant_number(), csv.getPolice_case_number()));
+						csv.getBonding_amount(), csv.getWarrant_number(), csv.getPolice_case_number()));
 				continue;
 			}
 			
 			
 			Booking booking = new Booking(csv.getMid_number(), csv.getFirstname(), csv.getLastname(), 
-					csv.getYear_of_birth(), csv.getRace(), csv.getSex(), 0, 0, false);
+					csv.getYear_of_birth(), csv.getRace(), csv.getSex());
 			
 			booking.addCharge(new Booking_charge(csv.getBooking_date(), csv.getRelease_date(), csv.getArresting_agency(), 
 					csv.getCrime_type(), csv.getCharge(), csv.getCourt_jurisdiction(), csv.getBonding_company(), 
-					csv.getBonding_amount(), null, csv.getWarrant_number(), csv.getPolice_case_number()));
+					csv.getBonding_amount(), csv.getWarrant_number(), csv.getPolice_case_number()));
 			bookingMap.put(csv.getMid_number(), booking);
 			
 		}
@@ -70,9 +70,6 @@ public class BookingCSVParser {
 				global.insert_booking.setString(4, value.getYear_of_birth());
 				global.insert_booking.setString(5, value.getRace());
 				global.insert_booking.setString(6, value.getSex());
-				global.insert_booking.setInt(7, value.getHeight());
-				global.insert_booking.setInt(8, value.getWeight());
-				global.insert_booking.setBoolean(9, false);
 				global.insert_booking.execute();
 				
 				int last_insert_id = 1;
@@ -89,10 +86,9 @@ public class BookingCSVParser {
 					global.insert_booking_charge.setString(7, instance.getCourt_jurisdiction());
 					global.insert_booking_charge.setString(8, instance.getBonding_company());
 					global.insert_booking_charge.setDouble(9, instance.getBonding_amount());
-					global.insert_booking_charge.setString(10, instance.getDisposition());
-					global.insert_booking_charge.setString(11, instance.getWarrant_number());
-					global.insert_booking_charge.setString(12, instance.getPolice_case_number());
-					global.insert_booking_charge.setTimestamp(13, null);
+					global.insert_booking_charge.setString(10, instance.getWarrant_number());
+					global.insert_booking_charge.setString(11, instance.getPolice_case_number());
+					global.insert_booking_charge.setTimestamp(12, null);
 					global.insert_booking_charge.execute();
 				}
 			}
