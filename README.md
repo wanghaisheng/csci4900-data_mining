@@ -63,23 +63,23 @@ Copies of **some** of Dr. Rasheed's lecture notes will be available at the botto
 * [2-27-2014] The first midterm will be on Thursday 3-6-2014. It will cover all the topics discussed in the course till today's lecture. It will be open book and notes but the use of laptops or phones will not be allowed. Please bring your text book to the exam. You should also bring your own lecture notes and all handouts. 
 
 ##Papers
-* "Mining Large Streams of User Data for Personalized Recommendations" [Martin Koerner][4-3] {download}
-* "Big Data: A new era or just a temporary hype?" [Thomas Haas][4-3] {Presentation}
-* "A study on video data mining" [Jeffrey Swindle & Alex Tozzi][4-10] {download}
-* "Measuring and Detecting Malware Downloads in Live Network Traffic" [Phani Vadrevu][4-10] {download}
-* "Anatomy of a Web-Scale Resale Market: A Data Mining Approach" [Vincent Lee][4-15] {download}
-* "Web Usage Mining Survey" [Sara Vahid][4-16] {Presentation}
-* "Data Extraction from Web Pages Based on Structural-Semantic Entropy" 2012. [SeyedAmin][4-16] {download}
-* "Feature Selection: An Ever Evolving Frontier in Data Mining" 2010. [Anzah][4-16] {download}
-* "K-SVD algorithm and its implementation on brain functional connectivity measurement" [Pan Huang & Ruichen Dai][4-17] {related paper}
-* "Text and Structural Data Mining of Influenza Mentions in Web and Social Media" 2010. [Matthew Lisivick][4-17] {download}
-* "Ethical issues in web data mining" 2004. [Ryan Linnane, Jeffrey Klein][4-17] {download}
-* "INTRUSION DETECTION VIA FUZZY DATA MINING" 2000. [Paul Weiler][4-17] {download}
-* "Clustering by Passing Messages Between Data Points" 2007. [Eduardo Trujillo & Justin Hromalik][4-22] {download}
-* "Earthquake Shakes Twitter Users: Real-time Event Detection by Social Sensors" 2010. [Sahar][4-22] {download}
-* "To Buy or Not to Buy: Mining Airfare Data to Minimize Ticket Purchase Price" 2003. [Maulesh][4-22] {download}
-* "Educational data mining: A survey from 1995 to 2005" 2007. [Matthias Bohleber][4-22] {download}
-* "Private traits and attributes are predictable from digital records of human behavior" [Sai Krishna][4-22] {download}
-* "A review of feature selection techniques in bioinformatics" 2007. [Goer & Shovik][4-23] {download}
-* "Mining Multi-label Data" 2009. [Zhaochong Liu][4-23] {download}
-* "BoosTexter: A Boosting-based System for Text Categorization" 2000. [Guodong Zhu & Andrew Talian][4-23] {download} 
+* "Mining Large Streams of User Data for Personalized Recommendations" [Martin Koerner][4-3] {[download](http://li231-127.members.linode.com/sites/default/files/issues/14-2-2012-12/V14-02-05-Amatriain.pdf)}
+* "Big Data: A new era or just a temporary hype?" [Thomas Haas][4-3] {[Presentation](http://cobweb.cs.uga.edu/~khaled/DMcourse/ThomasHaas_BigData_Presentationslides.pptx)}
+* "A study on video data mining" [Jeffrey Swindle & Alex Tozzi][4-10] {[download](http://link.springer.com/article/10.1007%2Fs13735-012-0016-2)}
+* "Measuring and Detecting Malware Downloads in Live Network Traffic" [Phani Vadrevu][4-10] {[download](http://roberto.perdisci.com/publications/publication-files/amico.pdf)}
+* "Anatomy of a Web-Scale Resale Market: A Data Mining Approach" [Vincent Lee][4-15] {[download](http://www.cs.uic.edu/~yzhao/research/papers/pe012-zhao.pdf)}
+* "Web Usage Mining Survey" [Sara Vahid][4-16] {[Presentation](http://cobweb.cs.uga.edu/~khaled/DMcourse/Web-Usage-Mining-Review.pptx)}
+* "Data Extraction from Web Pages Based on Structural-Semantic Entropy" 2012. [SeyedAmin][4-16] {[download](http://www2012.org/proceedings/companion/p93.pdf)}
+* "Feature Selection: An Ever Evolving Frontier in Data Mining" 2010. [Anzah][4-16] {[download](http://jmlr.org/proceedings/papers/v10/liu10b/liu10b)}
+* "K-SVD algorithm and its implementation on brain functional connectivity measurement" [Pan Huang & Ruichen Dai][4-17] {[related paper](http://intranet.daiict.ac.in/~ajit_r/IT530/KSVD_IEEETSP.pdf)}
+* "Text and Structural Data Mining of Influenza Mentions in Web and Social Media" 2010. [Matthew Lisivick][4-17] {[download](http://www.mdpi.com/1660-4601/7/2/596/pdf)}
+* "Ethical issues in web data mining" 2004. [Ryan Linnane, Jeffrey Klein][4-17] {[download](http://alexandria.tue.nl/repository/freearticles/612259)}
+* "INTRUSION DETECTION VIA FUZZY DATA MINING" 2000. [Paul Weiler][4-17] {[download](http://www.cse.msstate.edu/~bridges/papers/canada-00.pdf)}
+* "Clustering by Passing Messages Between Data Points" 2007. [Eduardo Trujillo & Justin Hromalik][4-22] {[download](http://www.psi.toronto.edu/affinitypropagation/FreyDueckScience07.pdf)}
+* "Earthquake Shakes Twitter Users: Real-time Event Detection by Social Sensors" 2010. [Sahar][4-22] {[download](http://csce.uark.edu/~tingxiny/courses/5013spring13/readingList/www2010.pdf)}
+* "To Buy or Not to Buy: Mining Airfare Data to Minimize Ticket Purchase Price" 2003. [Maulesh][4-22] {[download](http://knight.cis.temple.edu/~yates/papers/hamlet-kdd03.pdf)}
+* "Educational data mining: A survey from 1995 to 2005" 2007. [Matthias Bohleber][4-22] {[download](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.103.702&rep=rep1&type=pdf)}
+* "Private traits and attributes are predictable from digital records of human behavior" [Sai Krishna][4-22] {[download](http://www.pnas.org/content/110/15/5802.full.pdf+html?with-ds=yes)}
+* "A review of feature selection techniques in bioinformatics" 2007. [Goer & Shovik][4-23] {[download](http://bioinformatics.oxfordjournals.org/content/23/19/2507.full.pdf)}
+* "Mining Multi-label Data" 2009. [Zhaochong Liu][4-23] {[download](http://lkm.fri.uni-lj.si/xaigor/slo/pedagosko/dr-ui/tsoumakas09-dmkdh.pdf)}
+* "BoosTexter: A Boosting-based System for Text Categorization" 2000. [Guodong Zhu & Andrew Talian][4-23] {[download](http://link.springer.com/article/10.1023/A:1007649029923)} 
