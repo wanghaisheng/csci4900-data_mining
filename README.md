@@ -83,3 +83,27 @@ Copies of **some** of Dr. Rasheed's lecture notes will be available at the botto
 * "A review of feature selection techniques in bioinformatics" 2007. [Goer & Shovik][4-23] {[download](http://bioinformatics.oxfordjournals.org/content/23/19/2507.full.pdf)}
 * "Mining Multi-label Data" 2009. [Zhaochong Liu][4-23] {[download](http://lkm.fri.uni-lj.si/xaigor/slo/pedagosko/dr-ui/tsoumakas09-dmkdh.pdf)}
 * "BoosTexter: A Boosting-based System for Text Categorization" 2000. [Guodong Zhu & Andrew Talian][4-23] {[download](http://link.springer.com/article/10.1023/A:1007649029923)} 
+
+##Assignments:
+* Homework 1: Exercise 17.1 on page 559 of the text book.[Due 1-30-2014 in class]
+* [Homework 2](http://cobweb.cs.uga.edu/~khaled/DMcourse/homework2.pdf)
+* [Homework 3](http://cobweb.cs.uga.edu/~khaled/DMcourse/homework3.pdf)
+* Homework 4: Exercise 17.6 on page 582 of the text book.[Due 3-27-2014 in class]
+* [Homework 5](http://cobweb.cs.uga.edu/~khaled/DMcourse/homework5.pdf)
+
+##Lecture Notes:
+* [Chapter 1](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter1.pptx)
+* [Chapter 2](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter2.pptx)
+* [Chapter 3](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter3.pptx)
+* [Weka Tutorial Slides by Tomasz Oliwa](http://cobweb.cs.uga.edu/~khaled/DMcourse/weka2013slides.pdf)
+* [Chapter 4](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter4.pdf)
+* [Chapter 5](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter5.pdf)
+* [Chapter 6](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter6.pdf)
+* [Chapter 8](http://cobweb.cs.uga.edu/~khaled/DMcourse/Chapter8.pdf)
+
+---
+
+**The course syllabus is a general plan for the course; deviations announced to the class by the instructor may be necessary.**
+
+Last modified: April 22, 2014.  
+[Khaled Rasheed](http://www.cs.uga.edu/~khaled) (khaled[at]uga.edu)
