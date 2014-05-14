@@ -25,7 +25,7 @@ SELECT booking.mid_number, booking.lastname, booking.firstname, booking.year_of_
 FROM booking
 JOIN booking_charge
 	ON booking.id = booking_charge.booking_idx
-		LIMIT 20;
+;
 
 
 

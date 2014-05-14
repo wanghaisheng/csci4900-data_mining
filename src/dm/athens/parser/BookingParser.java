@@ -284,7 +284,7 @@ public class BookingParser {
 	
 	public static void main(String[] args) {
 		BookingParser parser = new BookingParser();
-		parser.openFile("html/booking.asp-20140510");
+		parser.openFile("html/booking.asp-20140514");
 		parser.parseTable();
 		parser.tableToSQL();
 	}
