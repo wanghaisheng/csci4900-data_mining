@@ -21,7 +21,7 @@ We used [Weka](http://www.cs.waikato.ac.nz/ml/weka/) and [RapidMiner](http://rap
 
 
 ##Results
-We preformed data mining as a group of 3 undergraduate students. Many of our results contain personal information which we cannot release, but feel free to preform your own mining on your Thursday, Friday, and Saturday nights bc Computer Science students always have time during these hours. Joking aside, most of our test sets and tools are in this repo, except the data files form the listings, but if you look hard enough you can find a pre-processed set.
+We preformed data mining as a group of 3 undergraduate students. Many of our results contain personal information which we cannot release, but feel free to preform your own mining on Thursday, Friday, and Saturday nights because Computer Science students always have time during these hours. Joking aside, most of our test sets and tools are in this repo, except the data files form the listings, but if you look hard enough you can find a pre-processed set.
 
 
 #Lets get start.
