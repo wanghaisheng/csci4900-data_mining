@@ -29,13 +29,20 @@
 package dm.athens.parser;
 
 import java.io.File;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -310,10 +317,46 @@ public class BookingParser {
 		}
 	}
 	
+	public void openFromTo(String folder, String from) {
+		try {
+			//Store files in this set
+			SortedSet<String> files = new TreeSet<String>();
+			
+			Path path = Paths.get(System.getProperty("user.dir"));
+			path = path.resolve(folder);
+			if (DEBUG) System.out.println(path);
+			
+			//Do a LS command
+			DirectoryStream<Path> dirStream = Files.newDirectoryStream(path);
+			for (Path entry: dirStream)
+				files.add(entry.toString());
+			
+			//Remove Pre
+			Iterator<String> iter = files.iterator();
+		    while(iter.hasNext()) {
+		        if (iter.next().endsWith(from)) break;
+		        iter.remove();
+		    }
+			
+			if (DEBUG) System.out.println(files.toString());
+			
+			//Process Files
+			for (String str : files) {
+				openFile(str);
+				parseTable();
+				tableToSQL();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		BookingParser parser = new BookingParser();
-		parser.openFile("html/booking.asp-20140524");
-		parser.parseTable();
-		parser.tableToSQL();
+//		parser.openFile("html/booking.asp-20140524");
+//		parser.parseTable();
+//		parser.tableToSQL();
+		
+		parser.openFromTo("html", "booking.asp-20140525");
 	}
 }
