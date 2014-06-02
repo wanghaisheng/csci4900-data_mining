@@ -333,10 +333,10 @@ public class BookingParser {
 			
 			//Remove Pre
 			Iterator<String> iter = files.iterator();
-		    while(iter.hasNext()) {
-		        if (iter.next().endsWith(from)) break;
-		        iter.remove();
-		    }
+			while(iter.hasNext()) {
+				if (iter.next().endsWith(from)) break;
+				iter.remove();
+			}
 			
 			if (DEBUG) System.out.println(files.toString());
 			
@@ -357,6 +357,6 @@ public class BookingParser {
 //		parser.parseTable();
 //		parser.tableToSQL();
 		
-		parser.openFromTo("html", "booking.asp-20140525");
+		parser.openFromTo("html", "booking.asp-20140528");
 	}
 }
