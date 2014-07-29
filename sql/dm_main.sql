@@ -39,10 +39,12 @@ JOIN booking_charge
 -- ------------------------------
 DROP DATABASE dm;
 -- remove data & reset auto increment id
+/*
 TRUNCATE TABLE student_listings;
 TRUNCATE TABLE faculty_and_staff;
 TRUNCATE TABLE booking;
 TRUNCATE TABLE booking_charge;
+*/
 -- ------------------------------
 -- WARNING -- WARNING -- WARNING
 -- ------------------------------
