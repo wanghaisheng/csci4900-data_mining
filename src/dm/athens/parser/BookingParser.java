@@ -62,7 +62,7 @@ import dm.dao.GlobalDB;
  */
 
 public class BookingParser {
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	private Map<Integer, Booking> bookingMap;
 	private GlobalDB global;
 	private Document doc;
@@ -344,7 +344,7 @@ public class BookingParser {
 			for (String str : files) {
 				openFile(str);
 				parseTable();
-				tableToSQL();
+//				tableToSQL();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -357,6 +357,6 @@ public class BookingParser {
 //		parser.parseTable();
 //		parser.tableToSQL();
 		
-		parser.openFromTo("html", "booking.asp-20140729");
+		parser.openFromTo("html", "booking.asp-20140923");
 	}
 }

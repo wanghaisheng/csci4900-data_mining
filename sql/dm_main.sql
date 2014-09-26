@@ -27,10 +27,10 @@ JOIN booking_charge
 	ON booking.id = booking_charge.booking_idx
 ;
 
+select * from booking where firstname like '%ariel%' limit 20;
 
-
-
-
+select * from booking_charge where charge_description like '%terr%' limit 20;
+select * from booking_charge where booking_idx = 5176;
 
 
 
